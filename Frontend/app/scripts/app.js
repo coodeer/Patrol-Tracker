@@ -1,5 +1,5 @@
 /*global define */
-define([], function () {
+define(['fullscreen'], function (fullscreenApi) {
     'use strict';
 
     return '\'Allo \'Allo!';

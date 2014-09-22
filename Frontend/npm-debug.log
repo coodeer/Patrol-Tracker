@@ -1,0 +1,59 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'http://github.com/robwierzbowski/grunt-build-control' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 warn package.json frontend@0.0.0 No description
+6 warn package.json frontend@0.0.0 No repository field.
+7 warn package.json frontend@0.0.0 No README data
+8 verbose readDependencies using package.json deps
+9 verbose cache add [ 'http://github.com/robwierzbowski/grunt-build-control', null ]
+10 verbose cache add name=undefined spec="http://github.com/robwierzbowski/grunt-build-control" args=["http://github.com/robwierzbowski/grunt-build-control",null]
+11 verbose parsed url { protocol: 'http:',
+11 verbose parsed url   slashes: true,
+11 verbose parsed url   auth: null,
+11 verbose parsed url   host: 'github.com',
+11 verbose parsed url   port: null,
+11 verbose parsed url   hostname: 'github.com',
+11 verbose parsed url   hash: null,
+11 verbose parsed url   search: null,
+11 verbose parsed url   query: null,
+11 verbose parsed url   pathname: '/robwierzbowski/grunt-build-control',
+11 verbose parsed url   path: '/robwierzbowski/grunt-build-control',
+11 verbose parsed url   href: 'http://github.com/robwierzbowski/grunt-build-control' }
+12 silly lockFile 214de847-bwierzbowski-grunt-build-control http://github.com/robwierzbowski/grunt-build-control
+13 verbose lock http://github.com/robwierzbowski/grunt-build-control C:\Users\gaston.moreno\AppData\Roaming\npm-cache\214de847-bwierzbowski-grunt-build-control.lock
+14 verbose addRemoteTarball [ 'http://github.com/robwierzbowski/grunt-build-control', null ]
+15 info retry fetch attempt 1 at 10:13:50
+16 verbose fetch to= C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control
+17 http GET http://github.com/robwierzbowski/grunt-build-control
+18 http 200 http://github.com/robwierzbowski/grunt-build-control
+19 verbose tar unpack C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control
+20 silly lockFile ca0a8a28-owski-grunt-build-control-unpack tar://C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control-unpack
+21 verbose lock tar://C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control-unpack C:\Users\gaston.moreno\AppData\Roaming\npm-cache\ca0a8a28-owski-grunt-build-control-unpack.lock
+22 silly lockFile accd8162-bwierzbowski-grunt-build-control tar://C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control
+23 verbose lock tar://C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control C:\Users\gaston.moreno\AppData\Roaming\npm-cache\accd8162-bwierzbowski-grunt-build-control.lock
+24 silly gunzTarPerm modes [ '777', '666' ]
+25 error not a package C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control
+26 silly lockFile ca0a8a28-owski-grunt-build-control-unpack tar://C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control-unpack
+27 silly lockFile ca0a8a28-owski-grunt-build-control-unpack tar://C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control-unpack
+28 silly lockFile accd8162-bwierzbowski-grunt-build-control tar://C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control
+29 silly lockFile accd8162-bwierzbowski-grunt-build-control tar://C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control
+30 silly lockFile 214de847-bwierzbowski-grunt-build-control http://github.com/robwierzbowski/grunt-build-control
+31 silly lockFile 214de847-bwierzbowski-grunt-build-control http://github.com/robwierzbowski/grunt-build-control
+32 error Error: ENOENT, open 'C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control-unpack\package.json'
+33 error If you need help, you may report this *entire* log,
+33 error including the npm and node versions, at:
+33 error     <http://github.com/npm/npm/issues>
+34 error System Windows_NT 6.1.7601
+35 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "http://github.com/robwierzbowski/grunt-build-control"
+36 error cwd C:\Users\gaston.moreno\Desktop\PatrolTracker\Frontend
+37 error node -v v0.10.32
+38 error npm -v 1.4.28
+39 error path C:\Users\GASTON~1.MOR\AppData\Local\Temp\npm-6428-74Xe5mV6\github.com\robwierzbowski\grunt-build-control-unpack\package.json
+40 error code ENOENT
+41 error errno 34
+42 verbose exit [ 34, true ]
