@@ -1,4 +1,4 @@
-// Generated on 2014-09-19 using generator-mobile 1.0.0-alpha.1
+// Generated on 2014-09-09 using generator-mobile 1.0.0-alpha.1
 'use strict';
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
@@ -439,28 +439,7 @@ module.exports = function (grunt) {
             all: {
                 rjsConfig: '<%= yeoman.app %>/scripts/main.js'
             }
-        },
-        buildcontrol: {
-            options: {
-                dir: 'dist',
-                commit: true,
-                push: true,
-                message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
-            },
-            heroku: {
-              options: {
-                  remote: 'git@heroku.com:patrol-tracker.git',
-                  branch: 'master',
-                  tag: 1
-              }
-            },
-            local: {
-              options: {
-                  remote: '../',
-                  branch: 'build'
-              }
-            }
-          }
+        }
     });
 
     grunt.registerTask('server', function (target) {
