@@ -3,6 +3,8 @@ require.config({
         jquery: '../bower_components/jquery/jquery',
         bootstrap: 'vendor/bootstrap/bootstrap',
         angular:'../bower_components/angular/angular.min',
+        angularRoute:'../bower_components/angular-route/angular-route.min',
+        angularResource:'../bower_components/angular-resource/angular-resource.min',
         fastclick:'vendor/fastclick',
         fullscreen:'fullscreensnippet'
     },
@@ -14,14 +16,22 @@ require.config({
         angular:{
           deps:['jquery'],
           exports:'angular'
+        },
+        angularRoute:{
+          deps:['angular'],
+          exports:'angular'
+        },
+        angularResource:{
+          deps:['angular'],
+          exports:'angular'
         }
     }
 });
 
-require(['app', 'jquery', 'bootstrap','fastclick'], function (app, $, bs, fastclick) {
-    'use strict';
+require(['app'], function (app) {
+  'use strict';
 
-    $(function() {
-        FastClick.attach(document.body);
-    });
+  angular.element(document).ready(function () {
+      angular.bootstrap(angular.element('body'), ['patrolTracker']);
+  });
 });
