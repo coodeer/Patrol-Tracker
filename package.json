@@ -1,0 +1,23 @@
+{
+  "name": "PatrolTracker",
+  "version": "1.0.0",
+  "description": "Patrol Tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab-art.globallogic.com.ar/gaston.moreno/patroltracker"
+  },
+  "keywords": [
+    "Patrol",
+    "Tracker",
+    "Promotion"
+  ],
+  "author": "Juan Diaz, Maximiliano Garcia, Carolina Ledema, Gaston Moreno",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.9.4"
+  }
+}
