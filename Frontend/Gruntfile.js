@@ -456,7 +456,7 @@ module.exports = function (grunt) {
             },
             local: {
               options: {
-                  remote: 'https://gitlab-art.globallogic.com.ar/gaston.moreno/patroltracker.git',
+                  remote: 'git@gitlab-art.globallogic.com.ar:gaston.moreno/patroltracker.git',
                   branch: 'build'
               }
             }
