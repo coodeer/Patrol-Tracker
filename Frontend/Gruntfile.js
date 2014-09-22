@@ -416,8 +416,8 @@ module.exports = function (grunt) {
                   expand:true,
                   cwd:'serverApp',
                   dest:'<%= yeoman.dist %>',
-                  src: [
-                      '*'
+                  src:[
+                      '**'
                   ]
                 }]
             }
