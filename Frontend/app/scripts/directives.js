@@ -51,9 +51,11 @@ define('directives',['jquery', 'services'], function($, services){
         },
         link:function(scope, element, attrs){
           scope.map = '';
-          var values = scope.getData();
-          console.log(values);
-          
+          scope.markers = [];
+          scope.getData(function(data){
+            scope.markers = data;
+          });
+
         }
       };
       return directiveDefinition;

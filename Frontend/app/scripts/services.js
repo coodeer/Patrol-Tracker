@@ -30,7 +30,7 @@ define('services',['angularResource'],function(ngResource){
             }
           }
 
-          dataContext.getAllVehicles(success,error);
+          dataContext.getAllVehicles({},success,error);
         };
 
         return{

@@ -5,9 +5,8 @@ define('controllers',['services'], function(services){
     .module('controllers',['services'])
     .controller('HomeCtrl',['$scope','trackableService', function(scope, service){
 
-      scope.getData = function getData(){
-        scope.trackeables =  service.getAll();
-        return scope.trackeables;
+      scope.getData = function getData(callback){
+        scope.trackeables =  service.getAll(callback);
       };
     }])
     .controller('assignZoneCtrl',['$scope', function(scope){
