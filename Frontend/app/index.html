@@ -18,23 +18,8 @@
   <link rel="stylesheet" href="styles/vendor/bootstrap/bootstrap.css">
   <!-- endbuild -->
   <link rel="stylesheet" href="styles/main.css">
-
-  <script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?sensor=false">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-      }
-    </script>
 </head>
-<body onload="initialize()">
+<body>
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <a class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
@@ -69,14 +54,11 @@
       </div><!--/.nav-collapse -->
     </div>
   </div>
-  <div id="map_canvas"></div>
-  <div class="container">
-    <div class="body-content">
-      <footer>
-        <p>&copy; GlobalLogic 2014</p>
-      </footer>
-    </div>
-  </div> <!-- /container -->
+  <div class="container-fluid" data-ng-view>
+  </div>
+  <footer class="navbar-fixed-bottom">
+    <p>&copy; GlobalLogic 2014</p>
+  </footer> <!-- /container -->
   <!-- build:js scripts/main.js -->
   <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
   <!-- endbuild -->

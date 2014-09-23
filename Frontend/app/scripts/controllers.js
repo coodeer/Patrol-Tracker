@@ -3,8 +3,12 @@ define('controllers',['services'], function(services){
 
   angular
     .module('controllers',['services'])
-    .controller('homeController',['$scope', function(scope){
+    .controller('HomeCtrl',['$scope','trackableService', function(scope, service){
 
+      scope.getData = function getData(){
+        scope.trackeables =  service.getAll();
+        return scope.trackeables;
+      };
     }])
     .controller('assignZoneCtrl',['$scope', function(scope){
 
