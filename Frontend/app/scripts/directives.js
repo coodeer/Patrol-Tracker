@@ -50,11 +50,47 @@ define('directives',['jquery', 'services'], function($, services){
           getData: '&'
         },
         link:function(scope, element, attrs){
-          scope.map = '';
+          scope.map = null;
           scope.markers = [];
-          scope.getData(scope, { callback: function(data){
-            scope.markers = data;
-          }});
+
+          function placeMarker(latitude, longitude) {
+            var location = new google.maps.LatLng(latitude, longitude);
+            var marker = new google.maps.Marker({
+                position: location,
+                map: scope.map
+            });
+
+            scope.map.setCenter(location);
+          }
+
+          function init(){
+
+            // scope.$watch('markers',function(){
+            //   if(scope.markers){
+            //
+            //   }
+            // });
+
+            scope.getData(
+              {
+                callback: function(data){
+                  scope.markers = data;
+                  for (var i = 0; i < scope.markers.length; i++) {
+                    var position = scope.markers[i].currentPosition;
+                    placeMarker(position.latitude, position.longitude);
+                  }
+                }
+              }
+            );
+
+          }
+
+          // init only when map is ready
+          scope.$watch('map', function(oldValue, newValue){
+            if(oldValue === null && !newValue){
+              init();
+            }
+          })
 
         }
       };
