@@ -52,9 +52,9 @@ define('directives',['jquery', 'services'], function($, services){
         link:function(scope, element, attrs){
           scope.map = '';
           scope.markers = [];
-          scope.getData(function(data){
+          scope.getData(scope, { callback: function(data){
             scope.markers = data;
-          });
+          }});
 
         }
       };
