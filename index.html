@@ -13,23 +13,9 @@
   <script src="scripts/vendor/d7100892.modernizr.js"></script>
 
   <link rel="stylesheet" href="styles/vendor/e40cadc5.bootstrap.css">
-  <link rel="stylesheet" href="styles/0a182391.main.css">
-
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-      }
-    </script>
+  <link rel="stylesheet" href="styles/31cef795.main.css">
 </head>
-<body onload="initialize()">
+<body>
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <a class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,34 +29,20 @@
           <li class="active"><a href="#">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li class="nav-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li>
         </ul>
         <form class="navbar-form form-inline pull-right">
           <input type="text" placeholder="Buscar">
+          <button name="button" type="button" id="full">sarsaer</button>
           <button type="submit" class="btn">Buscar</button>
         </form>
       </div><!--/.nav-collapse -->
     </div>
   </div>
-  <div id="map_canvas"></div>
-  <div class="container">
-    <div class="body-content">
-      <footer>
-        <p>&copy; GlobalLogic 2014</p>
-      </footer>
-    </div>
-  </div> <!-- /container -->
-  <script data-main="scripts/3c1ad612.main" src="bower_components/requirejs/require.js"></script>
+  <div class="container-fluid" data-ng-view="">
+  </div>
+  <footer class="navbar-fixed-bottom">
+    <p>&copy; GlobalLogic 2014</p>
+  </footer> <!-- /container -->
+  <script data-main="scripts/b848c693.main" src="bower_components/requirejs/require.js"></script>
 </body>
 </html>
