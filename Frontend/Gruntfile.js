@@ -419,6 +419,13 @@ module.exports = function (grunt) {
                   src:[
                       '**'
                   ]
+                },{
+                  expand:true,
+                  cwd:'serverApp',
+                  dest:'<%= yeoman.dist %>',
+                  src:[
+                      'views/*'
+                  ]
                 }]
             }
         },
