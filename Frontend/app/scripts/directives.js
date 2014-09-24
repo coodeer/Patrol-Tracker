@@ -97,7 +97,7 @@ define('directives',['jquery', 'services'], function($, services){
               }
             };
 
-            scope.getData({ callback: callback, data: bounds });
+            scope.getData({  data: bounds, callback: callback });
           }
 
           // init only when map is ready

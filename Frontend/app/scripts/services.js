@@ -9,7 +9,7 @@ define('services',['angularResource','configuration'],function(ngResource, confi
       });
 
       var trackeableOnViewport = resource(configuration.baseUrl + '/trackeable/:SWLng,:SWLat/:NELng,:NELat',{},{
-        getAll:{ method: 'GET', params:{ SWLng: '@southWest.lng', SWLat:'@southWest.lat', NELng:'@northEast.lng', NELat:'@northEast.lat' }, isArray:true }
+        getAll:{ method: 'GET', params:{ SWLng: '@southWest.lng', SWLat:'@SWLat', NELng:'@NELng', NELat:'@NELat' }, isArray:true }
       });
 
       return {
@@ -40,6 +40,13 @@ define('services',['angularResource','configuration'],function(ngResource, confi
 
         var getAllOnViewport = function getAllOnViewport(data, callback, errCallback){
 
+          var requestData = {
+            SWLat: data.southWest.lat,
+            SWLng: data.northEast.lng,
+            NELat: data.northEast.lat,
+            NELng: data.southWest.lng
+          };
+
           function success(responseData){
               // do something
               if(angular.isFunction(callback)){
@@ -54,7 +61,7 @@ define('services',['angularResource','configuration'],function(ngResource, confi
             }
           }
 
-          return dataContext.getTrackeablesOnViewport(data,success,error);
+          return dataContext.getTrackeablesOnViewport(requestData,success,error);
         };
 
         return{
