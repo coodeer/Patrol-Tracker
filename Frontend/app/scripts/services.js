@@ -42,9 +42,9 @@ define('services',['angularResource','configuration'],function(ngResource, confi
 
           var requestData = {
             SWLat: data.southWest.lat,
-            SWLng: data.northEast.lng,
+            SWLng: data.southWest.lng,
             NELat: data.northEast.lat,
-            NELng: data.southWest.lng
+            NELng: data.northEast.lng
           };
 
           function success(responseData){

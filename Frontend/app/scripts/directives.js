@@ -60,8 +60,6 @@ define('directives',['jquery', 'services'], function($, services){
                 position: location,
                 map: scope.map
             });
-
-            scope.map.setCenter(location);
           }
 
           function init(){
