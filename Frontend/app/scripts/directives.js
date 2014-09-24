@@ -50,6 +50,7 @@ define('directives',['jquery', 'services'], function($, services){
           getData: '&'
         },
         link:function(scope, element, attrs){
+          var initWatch;
           scope.map = null;
           scope.markers = [];
 
@@ -64,33 +65,47 @@ define('directives',['jquery', 'services'], function($, services){
           }
 
           function init(){
+            // clear the watcher for map
+            initWatch();
 
-            // scope.$watch('markers',function(){
-            //   if(scope.markers){
-            //
-            //   }
-            // });
+            // on viewport change get data
+            google.maps.event.addListener(scope.map, 'bounds_changed', function(){
+              var northEast = scope.map.getBounds().getNorthEast();
+              var southWest = scope.map.getBounds().getSouthWest();
 
-            scope.getData(
-              {
-                callback: function(data){
-                  scope.markers = data;
-                  for (var i = 0; i < scope.markers.length; i++) {
-                    var position = scope.markers[i].currentPosition;
-                    placeMarker(position.latitude, position.longitude);
-                  }
+              var bounds = {
+                northEast:{
+                  lat: northEast.lat(),
+                  lng: northEast.lng()
+                },
+                southWest:{
+                  lat: southWest.lat(),
+                  lng: southWest.lng()
                 }
-              }
-            );
+              };
+              getData(bounds);
+            });
 
           }
 
+          function getData(bounds){
+            var callback = function(data){
+              scope.markers = data;
+              for (var i = 0; i < scope.markers.length; i++) {
+                var position = scope.markers[i].currentPosition;
+                placeMarker(position.latitude, position.longitude);
+              }
+            };
+
+            scope.getData({ callback: callback, data: bounds });
+          }
+
           // init only when map is ready
-          scope.$watch('map', function(oldValue, newValue){
-            if(oldValue === null && !newValue){
+          initWatch = scope.$watch('map', function(newValue, oldValue){
+            if(oldValue === null && newValue){
               init();
             }
-          })
+          });
 
         }
       };

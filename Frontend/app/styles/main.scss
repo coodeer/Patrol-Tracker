@@ -12,4 +12,10 @@ body {
 }
 .googleMap{
   height:100%;
+  * {
+    box-sizing: content-box;
+  }
+  img{
+    max-width: none;
+  }
 }
