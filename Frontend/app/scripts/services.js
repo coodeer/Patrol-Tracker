@@ -17,7 +17,9 @@ define('services',['angularResource','configuration'],function(ngResource, confi
         getTrackeablesOnViewport: trackeableOnViewport.getAll
       };
     }])
-    .factory('trackableService', ['dataContext', function(dataContext){
+    .factory('trackableService', ['dataContext', '$window',
+      function(dataContext, $window){
+        var pullFrequency = 100000;
 
         var getAll = function getAll(callback, errCallback){
 
@@ -64,9 +66,28 @@ define('services',['angularResource','configuration'],function(ngResource, confi
           return dataContext.getTrackeablesOnViewport(requestData,success,error);
         };
 
+        var subscribe = function subscribe(method, data, callback, errCallback){
+
+          method(data, callback, errCallback);
+          var intervalToken = $window.setInterval(function(){
+              method(data, callback, errCallback);
+          }, pullFrequency);
+
+          var unsubscribe = function(){
+            $window.clearInterval(intervalToken);
+          };
+
+          return unsubscribe;
+        };
+
+        var subscribeToViewport = function(bounds, callback, errCallback){
+          return subscribe(getAllOnViewport, bounds, callback, errCallback);
+        };
+
         return{
           getAll: getAll,
-          getAllOnViewport: getAllOnViewport
-        }
-    }]);
+          subscribeToViewport: subscribeToViewport
+        };
+      }
+    ]);
 });

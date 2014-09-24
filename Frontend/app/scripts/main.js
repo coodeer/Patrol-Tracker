@@ -6,6 +6,7 @@ require.config({
         angularRoute:'../bower_components/angular-route/angular-route.min',
         angularResource:'../bower_components/angular-resource/angular-resource.min',
         fastclick:'vendor/fastclick',
+        markerClusterer: 'vendor/markerclusterer',
         fullscreen:'fullscreensnippet'
     },
     shim: {

@@ -1,4 +1,4 @@
-define('directives',['jquery', 'services'], function($, services){
+define('directives',['jquery', 'services', 'markerClusterer'], function($, services, markerClusterer){
   'use strict';
 
   angular.module('directives',[])
@@ -50,24 +50,52 @@ define('directives',['jquery', 'services'], function($, services){
           getData: '&'
         },
         link:function(scope, element, attrs){
-          var initWatch;
+          var initWatch,
+              viewportSubscriptionToken,
+              clusterer,
+              clustererOptions = {
+                gridSize: 50,
+                maxZoom: 15,
+                style:[{
+                  url: '/images/08955b34.soldier.png',
+                  width: 35,
+                  height: 53,
+                  textColor: '#ff00ff',
+                  textSize: 10
+                }, {
+                  url: '/images/08955b34.soldier.png',
+                  width: 45,
+                  height: 69,
+                  textColor: '#ff0000',
+                  textSize: 11
+                }, {
+                  url: '/images/08955b34.soldier.png',
+                  width: 55,
+                  height: 83,
+                  textColor: '#ffffff',
+                  textSize: 12
+                }]
+              },
+               carIcon,
+               soldierIcon;
           scope.map = null;
           scope.markers = [];
-
-          function placeMarker(latitude, longitude) {
-            var location = new google.maps.LatLng(latitude, longitude);
-            var marker = new google.maps.Marker({
-                position: location,
-                map: scope.map
-            });
-          }
 
           function init(){
             // clear the watcher for map
             initWatch();
 
+            // setup icons
+            carIcon = new google.maps.MarkerImage('/images/b0f96744.car.png', new google.maps.Size(24, 24));
+            soldierIcon = new google.maps.MarkerImage('/images/08955b34.soldier.png', new google.maps.Size(24, 36));
+
             // on viewport change get data
             google.maps.event.addListener(scope.map, 'bounds_changed', function(){
+              // cancel current subscription
+              if(viewportSubscriptionToken){
+                viewportSubscriptionToken();
+              }
+
               var northEast = scope.map.getBounds().getNorthEast();
               var southWest = scope.map.getBounds().getSouthWest();
 
@@ -81,21 +109,49 @@ define('directives',['jquery', 'services'], function($, services){
                   lng: southWest.lng()
                 }
               };
-              getData(bounds);
-            });
 
+              subscribeToViewport(bounds);
+            });
           }
 
-          function getData(bounds){
-            var callback = function(data){
-              scope.markers = data;
-              for (var i = 0; i < scope.markers.length; i++) {
-                var position = scope.markers[i].currentPosition;
-                placeMarker(position.latitude, position.longitude);
-              }
-            };
+          function subscribeToViewport(bounds){
+            viewportSubscriptionToken = scope.getData({  data: bounds, callback: updateMap });
+          }
 
-            scope.getData({  data: bounds, callback: callback });
+          function isMarkerLoaded(trackeable){
+            var markerIndex = -1;
+            for (var i = 0; i < scope.markers.length; i++) {
+              if(scope.markers[i].trackeable._id === trackeable._id){
+                markerIndex = i;
+                break;
+              }
+            }
+            return markerIndex;
+          }
+
+          function updateMap(data){
+            for (var i = 0; i < data.length; i++) {
+              var location = new google.maps.LatLng(data[i].currentPosition.latitude, data[i].currentPosition.longitude);
+              var markerIndex = isMarkerLoaded(data[i]);
+
+              if(markerIndex !== -1){
+                // update location
+                scope.markers[markerIndex].setPosition(location);
+              }
+              else{
+                var marker = new google.maps.Marker({
+                    position: location,
+                    icon: data[i].isVehicle ? carIcon : soldierIcon
+                });
+                marker.trackeable = data[i];
+                scope.markers.push(marker);
+              }
+            }
+
+            if(clusterer){
+              clusterer.clearMarkers();
+            }
+            clusterer = new MarkerClusterer(scope.map, scope.markers, clustererOptions);
           }
 
           // init only when map is ready

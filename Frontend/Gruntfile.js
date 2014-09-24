@@ -71,7 +71,7 @@ module.exports = function (grunt) {
                 options: {
                     sizes: [
                         {
-                            width: 320,
+                            width: 320
                         },
                         {
                             width: 640
@@ -83,9 +83,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/images',
+                    cwd: '<%= yeoman.app %>/saraza',
                     src: '{,*/}*.{png,jpg,jpeg}',
-                    dest: '<%= yeoman.dist %>/images'
+                    dest: '<%= yeoman.dist %>/saraza'
                 }]
             }
         },
