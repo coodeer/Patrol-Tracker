@@ -56,17 +56,17 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
               clustererOptions = {
                 gridSize: 50,
                 maxZoom: 15,
-                style:[{
+                styles:[{
                   url: '/views/soldier35.png',
                   width: 35,
                   height: 54,
-                  textColor: '#ff00ff',
+                  textColor: '#ffffff',
                   textSize: 10
                 }, {
                   url: '/views/soldier45.png',
                   width: 45,
                   height: 69,
-                  textColor: '#ff0000',
+                  textColor: '#ffffff',
                   textSize: 11
                 }, {
                   url: '/views/soldier55.png',
@@ -91,6 +91,7 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
 
             // on viewport change get data
             google.maps.event.addListener(scope.map, 'bounds_changed', function(){
+              console.log('bounds_changed', new Date().toTimeString());
               // cancel current subscription
               if(viewportSubscriptionToken){
                 viewportSubscriptionToken();
