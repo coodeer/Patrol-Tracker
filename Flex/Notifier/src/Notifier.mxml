@@ -4,14 +4,14 @@
     creationComplete="windowedapplication1_creationCompleteHandler(event)"
     xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns:s="library://ns.adobe.com/flex/spark"
-    visible="false"
+    visible="true"
     xmlns:mx="library://ns.adobe.com/flex/mx"
     xmlns:ui="com.charlesbihis.engine.notification.ui.*">
     <fx:Declarations>
         <ui:Notification id="notif"
-            title="JUan"
+            title="Test"
             image="/assets/images/alert.PNG"
-            link="http://www.youtube.com/watch?v=_6GqqIvfSVQ"
+            link="openMarker"
             isCompact="false"
             isSticky="false"
             isReplayable="true"/>
@@ -25,31 +25,18 @@
             import com.charlesbihis.engine.notification.ui.Notification;
             import mx.events.FlexEvent;
 
-            // create engine with default settings
+            public var lc:LocalConnection;
 
             var notificationManager:NotificationManager;
 
             private var clientObject:Object;
 
-            // now that we have an engine, let's create a notification and show it
-            //public var notif:Notification;// = new Notification();
-            //notif.title = "Derek ► Jacobim";
-            /* 		notification.message = "What is this?  A center for ANTS?!";
-                    notification.image = "/assets/images/profile/derek/avatar.png";
-                    notification.link = "http://www.youtube.com/watch?v=_6GqqIvfSVQ";
-                    notification.isCompact = false;
-                    notification.isSticky = false;
-                    notification.isReplayable = true; */
-
-            private var lc:LocalConnection;
-
             protected function windowedapplication1_clickHandler(event:MouseEvent):void
             {
                 var notif:Notification = new Notification();
-                notif.title = "Derek ► Jacobim";
-                notif.message = "What is this?  A center for ANTS?!";
-                // notif.image = "/assets/images/profile/derek/avatar.png";
-                notif.link = "http://www.youtube.com/watch?v=_6GqqIvfSVQ";
+                notif.title = "Alerta de Trackeo";
+                notif.message = "Mensaje";
+                notif.link = "openMarker";
                 notif.isCompact = false;
                 notif.isSticky = false;
                 notif.isReplayable = true;
@@ -68,25 +55,19 @@
 
                 lc = new LocalConnection();
                 lc.allowDomain("*");
+                notificationManager.localConnection = lc;
                 clientObject = new Object();
-                clientObject.doMethod1 = function()
+                clientObject.notify = function(param1:String, param2:String, param3:String, param4:String, param5:String):void
                 {
-                    trace("doMethod1 called.");
-                }
-                clientObject.doMethod2 = function(param1, param2, param3, param4, param5)
-                {
-
                     var notif:Notification = new Notification();
                     notif.title = param1;
-                    notif.message = "What is this?  A center for ANTS?!";
-                    // notif.image = "/assets/images/profile/derek/avatar.png";
-                    notif.link = "http://www.youtube.com/watch?v=_6GqqIvfSVQ";
+                    notif.message = param1;
+                    notif.link = "openMarker";
                     notif.isCompact = false;
                     notif.isSticky = false;
                     notif.isReplayable = true;
                     notificationManager.showNotification(notif);
-                    trace("doMethod2 called with one parameter: " + param1);
-                    trace("The square of the parameter is: " + param1 * param1);
+                    trace("notify called with one parameter: " + param2, param3, param4, param5);
                 }
                 lc.client = clientObject;
 

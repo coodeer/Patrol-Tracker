@@ -42,7 +42,7 @@ package com.patroltracker.view
             //todo parse params
 
             if (lc)
-                lc.send("_myconnectionAir", "doMethod2", "caca");
+                lc.send("_myconnectionAir", "notify", param1);
         }
 
         override public function handleNotification(notification:INotification):void
@@ -84,7 +84,7 @@ package com.patroltracker.view
             try
             {
                 if (lc)
-                    lc.send("_myconnectionAir", "doMethod2", "caca");
+                    lc.send("_myconnectionAir", "notify", "TEST");
             }
             catch (error:ArgumentError)
             {
@@ -103,10 +103,6 @@ package com.patroltracker.view
             mainScreen.dataGrid.dataProvider = new ArrayCollection(JSON.parse(notification.getBody().toString()) as Array);
         }
 
-        /*********************************/
-        /* events handler 				 */
-        /*********************************/
-
         private function handleCreationComplete(evt:Event):void
         {
             ExternalInterface.addCallback("setNotification", callFromJavaScript);
@@ -115,39 +111,12 @@ package com.patroltracker.view
             mainScreen.button.addEventListener(MouseEvent.CLICK, clickHandler);
             lc = new LocalConnection();
             clientObject = new Object();
-            clientObject.doMethod1 = function()
+            clientObject.openMarker = function(param1:String):void
             {
-                trace("doMethod1xxxx called.");
-            }
-            clientObject.doMethod2 = function(param1)
-            {
-                trace("doMethod2xxxxx called with one parameter: " + param1);
-                trace("The squarexxxx of the parameter is: " + param1 * param1);
+                ExternalInterface.call("openMarker", param1);
+                trace("openMarker called with one parameter: " + param1);
             }
             lc.client = clientObject;
-
-            //lc.connect("mySwfConnection");
-
-            // lc.send("_myconnectionAir", "doMethod2", "caca");
-
-        /*            mainScreen.myText1 = localeProxy.getText(LocaleKeyEnum.HOW_TO_READ_CONFIG_VALUES);
-
-                    var myHtmlText:String = '';
-                    myHtmlText += '<b>simple value:</b> configProxy.getValue( ConfigKeyEnum.KEY_NAME ) = ' + configProxy.getValue(ConfigKeyEnum.OTHER_KEY_NAME) + '<br><br>';
-                    myHtmlText += '<b>long text value:</b> configProxy.getValue( ConfigKeyEnum.OTHER_KEY_NAME ) = ' + configProxy.getValue(ConfigKeyEnum.OTHER_KEY_NAME) + '<br><br>';
-                    myHtmlText += '<b>number value:</b> configProxy.getNumber( ConfigKeyEnum.NUMBER_TEST ) = ' + configProxy.getNumber(ConfigKeyEnum.NUMBER_TEST) + '<br><br>';
-                    myHtmlText += '<b>boolean value:</b> configProxy.getBoolean( ConfigKeyEnum.BOOLEAN_TEST ) = ' + configProxy.getBoolean(ConfigKeyEnum.BOOLEAN_TEST) + '<br><br>';
-                    myHtmlText += '<b>default value:</b> configProxy.getValue( ConfigKeyEnum.TEST_DEFAULT_VALUE ) = ' + configProxy.getValue(ConfigKeyEnum.TEST_DEFAULT_VALUE) + '<br><br>';
-                    myHtmlText += '<b>value inside a group:</b> configProxy.getValue( ConfigKeyEnum.GROUP_NAME + ConfigProxy.SEPARATOR + ConfigKeyEnum.KEY_INSIDE_GROUP ) = ' + configProxy.getValue(ConfigKeyEnum.GROUP_NAME + ConfigProxy.SEPARATOR + ConfigKeyEnum.KEY_INSIDE_GROUP) + '<br><br>';
-                    myHtmlText += '<b>value inside neested group:</b> configProxy.getValue( ConfigKeyEnum.GROUP_NAME + ConfigProxy.SEPARATOR + ConfigKeyEnum.SUBGROUP_NAME + ConfigProxy.SEPARATOR + ConfigKeyEnum.KEY_INSIDE_SUBGROUP  ) = ' + configProxy.getValue(ConfigKeyEnum.GROUP_NAME + ConfigProxy.SEPARATOR + ConfigKeyEnum.SUBGROUP_NAME + ConfigProxy.SEPARATOR + ConfigKeyEnum.KEY_INSIDE_SUBGROUP) + '<br><br>';
-                    mainScreen.myText2 = myHtmlText;
-
-                    mainScreen.myText3 = localeProxy.getText(LocaleKeyEnum.HOW_TO_READ_LOCALE_TEXT);
-
-                    var myHtmlLocaleText:String = '';
-                    myHtmlLocaleText += '<b>simple text resource:</b> localeProxy.getText( LocaleKeyEnum.HELLO_WORLD ) = ' + localeProxy.getText(LocaleKeyEnum.HELLO_WORLD) + '<br><br>';
-                    myHtmlLocaleText += '<b>long text resource:</b> localeProxy.getText( LocaleKeyEnum.LONG_TEXT ) = ' + localeProxy.getText(LocaleKeyEnum.LONG_TEXT) + '<br>';
-                    mainScreen.myText4 = myHtmlLocaleText;*/
 
         }
     }
