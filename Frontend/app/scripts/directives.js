@@ -57,21 +57,21 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
                 gridSize: 50,
                 maxZoom: 15,
                 style:[{
-                  url: '/views/soldier.png',
+                  url: '/views/soldier35.png',
                   width: 35,
-                  height: 53,
+                  height: 54,
                   textColor: '#ff00ff',
                   textSize: 10
                 }, {
-                  url: '/views/soldier.png',
+                  url: '/views/soldier45.png',
                   width: 45,
                   height: 69,
                   textColor: '#ff0000',
                   textSize: 11
                 }, {
-                  url: '/views/soldier.png',
+                  url: '/views/soldier55.png',
                   width: 55,
-                  height: 83,
+                  height: 84,
                   textColor: '#ffffff',
                   textSize: 12
                 }]
@@ -87,7 +87,7 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
 
             // setup icons
             carIcon = new google.maps.MarkerImage('/views/car.png', new google.maps.Size(24, 13));
-            soldierIcon = new google.maps.MarkerImage('/views/soldier.png', new google.maps.Size(24, 36));
+            soldierIcon = new google.maps.MarkerImage('/views/soldier24.png', new google.maps.Size(24, 37));
 
             // on viewport change get data
             google.maps.event.addListener(scope.map, 'bounds_changed', function(){
