@@ -9,7 +9,7 @@ define('controllers',['services'], function(services){
         return service.subscribeToViewport(data, callback);
       };
     }])
-    .controller('ZoneCtrl',['$scope', function(scope){
-
+    .controller('ZoneCtrl',['$scope','trackableService', function(scope, service){
+        console.log(service.getAll());
     }]);
 });
