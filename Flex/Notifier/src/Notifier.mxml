@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication 
+    click="windowedapplication1_clickHandler(event)"
+    creationComplete="windowedapplication1_creationCompleteHandler(event)"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    visible="true"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:ui="com.charlesbihis.engine.notification.ui.*">
+    <fx:Declarations>
+        <ui:Notification id="notif"
+            title="Test"
+            image="/assets/images/alert.PNG"
+            link="openMarker"
+            isCompact="false"
+            isSticky="false"
+            isReplayable="true"/>
+
+
+    </fx:Declarations>
+    <fx:Script>
+        <![CDATA[
+            import com.charlesbihis.engine.notification.NotificationConst;
+            import com.charlesbihis.engine.notification.NotificationManager;
+            import com.charlesbihis.engine.notification.ui.Notification;
+            import mx.events.FlexEvent;
+
+            public var lc:LocalConnection;
+
+            var notificationManager:NotificationManager;
+
+            private var clientObject:Object;
+
+            protected function windowedapplication1_clickHandler(event:MouseEvent):void
+            {
+                var notif:Notification = new Notification();
+                notif.title = "Alerta de Trackeo";
+                notif.message = "Mensaje";
+                notif.link = "openMarker";
+                notif.isCompact = false;
+                notif.isSticky = false;
+                notif.isReplayable = true;
+                notificationManager.showNotification(notif);
+            }
+
+            protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+            {
+                //notificationManager.showNotification(notif);
+                notificationManager = new NotificationManager("/assets/style/light.swf", // default style
+                                                              "/assets/images/alert.PNG", // default notification image
+                                                              "/assets/images/alert.PNG", // default compact notification image
+                                                              "/assets/sounds/drop.mp3", // (optional) default notification sound
+                                                              NotificationConst.DISPLAY_LENGTH_DEFAULT, // (optional) default display length
+                                                              NotificationConst.DISPLAY_LOCATION_AUTO); // (optional) default display location
+
+                lc = new LocalConnection();
+                lc.allowDomain("*");
+                notificationManager.localConnection = lc;
+                clientObject = new Object();
+                clientObject.notify = function(param1:String, param2:String, param3:String, param4:String, param5:String):void
+                {
+                    var notif:Notification = new Notification();
+                    notif.title = param1;
+                    notif.message = param1;
+                    notif.link = "openMarker";
+                    notif.isCompact = false;
+                    notif.isSticky = false;
+                    notif.isReplayable = true;
+                    notificationManager.showNotification(notif);
+                    trace("notify called with one parameter: " + param2, param3, param4, param5);
+                }
+                lc.client = clientObject;
+
+                lc.connect("_myconnectionAir");
+
+            }
+        ]]>
+    </fx:Script>
+
+
+
+</s:WindowedApplication>
