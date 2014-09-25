@@ -8,9 +8,12 @@ package com.patroltracker.view
     import flash.events.MouseEvent;
     import flash.external.ExternalInterface;
     import flash.net.LocalConnection;
+    import flash.system.ApplicationDomain;
     import mx.collections.ArrayCollection;
+    import mx.preloaders.DownloadProgressBar;
     import org.puremvc.as3.interfaces.*;
     import org.puremvc.as3.patterns.mediator.Mediator;
+    import spark.components.Application;
 
     /**
      * A Mediator for interacting with the MainScreen component.
@@ -42,7 +45,7 @@ package com.patroltracker.view
             //todo parse params
 
             if (lc)
-                lc.send("_myconnectionAir", "notify", param1);
+                lc.send("_myconnectionAir", "notify", param1, null, null, null, null);
         }
 
         override public function handleNotification(notification:INotification):void
@@ -84,7 +87,7 @@ package com.patroltracker.view
             try
             {
                 if (lc)
-                    lc.send("_myconnectionAir", "notify", "TEST");
+                    lc.send("_myconnectionAir", "notify", "TEST", "TEST", "TEST", "TEST", "TEST");
             }
             catch (error:ArgumentError)
             {
@@ -105,11 +108,16 @@ package com.patroltracker.view
 
         private function handleCreationComplete(evt:Event):void
         {
+
+            var dm:Object = ApplicationDomain.currentDomain;
+            trace(dm.valueOf())
+            trace(new LocalConnection().domain);
             ExternalInterface.addCallback("setNotification", callFromJavaScript);
             ExternalInterface.addCallback("showHistory", showHistory);
 
             mainScreen.button.addEventListener(MouseEvent.CLICK, clickHandler);
             lc = new LocalConnection();
+            lc.allowDomain("*");
             clientObject = new Object();
             clientObject.openMarker = function(param1:String):void
             {
@@ -117,7 +125,7 @@ package com.patroltracker.view
                 trace("openMarker called with one parameter: " + param1);
             }
             lc.client = clientObject;
-
+            lc.connect('swfConnection');
         }
     }
 }
