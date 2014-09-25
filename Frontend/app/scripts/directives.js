@@ -5,6 +5,8 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
     .directive('googleMap', [function(){
       var directiveDefinition = {
         restrict:'C',
+        scope:false,
+        priority:1,
         link:function(scope, element, attrs){
           scope.centerLat = parseFloat(scope.centerLat);
           scope.centerLng = parseFloat(scope.centerLng);
@@ -29,9 +31,15 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
               mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
-            scope.$apply(function(){
+
+            if(scope.$root.$$phase !== '$apply' && scope.$root.$$phase !== '$digest') {
+              scope.$apply(function(){
+                scope.map = new google.maps.Map(element[0], mapOptions);
+              });
+            }
+            else{
               scope.map = new google.maps.Map(element[0], mapOptions);
-            });
+            }
           }
 
           scope.init();
@@ -56,17 +64,17 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
               clustererOptions = {
                 gridSize: 50,
                 maxZoom: 15,
-                style:[{
+                styles:[{
                   url: '/views/soldier35.png',
                   width: 35,
                   height: 54,
-                  textColor: '#ff00ff',
+                  textColor: '#ffffff',
                   textSize: 10
                 }, {
                   url: '/views/soldier45.png',
                   width: 45,
                   height: 69,
-                  textColor: '#ff0000',
+                  textColor: '#ffffff',
                   textSize: 11
                 }, {
                   url: '/views/soldier55.png',
@@ -78,7 +86,7 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
               },
                carIcon,
                soldierIcon;
-          scope.map = null;
+
           scope.markers = [];
 
           function init(){
@@ -91,6 +99,7 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
 
             // on viewport change get data
             google.maps.event.addListener(scope.map, 'bounds_changed', function(){
+              console.log('bounds_changed', new Date().toTimeString());
               // cancel current subscription
               if(viewportSubscriptionToken){
                 viewportSubscriptionToken();
@@ -156,7 +165,7 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
 
           // init only when map is ready
           initWatch = scope.$watch('map', function(newValue, oldValue){
-            if(oldValue === null && newValue){
+            if(newValue){
               init();
             }
           });
@@ -164,6 +173,38 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
         }
       };
       return directiveDefinition;
-    }]);
+    }])
+    .directive('zoneMap',[
+      function(){
+        var directiveDefinition ={
+          restrict: 'A',
+          replace:true,
+          template:'<div data-google-map="true" class="googleMap"></div>',
+          scope:{
+            centerLat:'@',
+            centerLng:'@'
+          },
+          link:function(scope){
+            var initWatch;
 
+            function init(){
+              // clear the watcher for map
+              initWatch();
+
+              // do your magic
+            }
+
+            // init only when map is ready
+            initWatch = scope.$watch('map', function(newValue, oldValue){
+              if(newValue){
+                init();
+              }
+            });
+
+
+          }
+        };
+        return directiveDefinition;
+      }
+    ])
 });
