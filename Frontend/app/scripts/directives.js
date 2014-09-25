@@ -29,9 +29,11 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
               mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
-            scope.$apply(function(){
-              scope.map = new google.maps.Map(element[0], mapOptions);
-            });
+            scope.map = new google.maps.Map(element[0], mapOptions);
+
+            if(scope.$root.$$phase !== '$apply' && scope.$root.$$phase !== '$digest') {
+              scope.$apply();
+            }
           }
 
           scope.init();
@@ -165,6 +167,22 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
         }
       };
       return directiveDefinition;
-    }]);
-
+    }])
+    .directive('zoneMap',[
+      function(){
+        var directiveDefinition ={
+          restrict: 'A',
+          replace:true,
+          template:'<div data-google-map="true" class="googleMap"></div>',
+          scope:{
+            centerLat:'@',
+            centerLng:'@'
+          },
+          link:function(scope){
+            scope.map = null;
+          }
+        };
+        return directiveDefinition;
+      }
+    ])
 });
