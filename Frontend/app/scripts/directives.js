@@ -5,6 +5,8 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
     .directive('googleMap', [function(){
       var directiveDefinition = {
         restrict:'C',
+        scope:false,
+        priority:1,
         link:function(scope, element, attrs){
           scope.centerLat = parseFloat(scope.centerLat);
           scope.centerLng = parseFloat(scope.centerLng);
@@ -29,10 +31,14 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
               mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
-            scope.map = new google.maps.Map(element[0], mapOptions);
 
             if(scope.$root.$$phase !== '$apply' && scope.$root.$$phase !== '$digest') {
-              scope.$apply();
+              scope.$apply(function(){
+                scope.map = new google.maps.Map(element[0], mapOptions);
+              });
+            }
+            else{
+              scope.map = new google.maps.Map(element[0], mapOptions);
             }
           }
 
@@ -80,7 +86,7 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
               },
                carIcon,
                soldierIcon;
-          scope.map = null;
+
           scope.markers = [];
 
           function init(){
@@ -159,7 +165,7 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
 
           // init only when map is ready
           initWatch = scope.$watch('map', function(newValue, oldValue){
-            if(oldValue === null && newValue){
+            if(newValue){
               init();
             }
           });
@@ -179,7 +185,23 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
             centerLng:'@'
           },
           link:function(scope){
-            scope.map = null;
+            var initWatch;
+
+            function init(){
+              // clear the watcher for map
+              initWatch();
+
+              // do your magic
+            }
+
+            // init only when map is ready
+            initWatch = scope.$watch('map', function(newValue, oldValue){
+              if(newValue){
+                init();
+              }
+            });
+
+
           }
         };
         return directiveDefinition;
