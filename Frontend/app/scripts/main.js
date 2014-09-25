@@ -5,7 +5,9 @@ require.config({
         angular:'../bower_components/angular/angular.min',
         angularRoute:'../bower_components/angular-route/angular-route.min',
         angularResource:'../bower_components/angular-resource/angular-resource.min',
+        infobox:'vendor/infobox',
         fastclick:'vendor/fastclick',
+        pubnub:'vendor/pubnub.min',
         markerClusterer: 'vendor/markerclusterer',
         fullscreen:'fullscreensnippet'
     },

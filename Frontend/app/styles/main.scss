@@ -1,5 +1,7 @@
 @import "partials/base";
 @import "partials/master";
+@import "compass/css3";
+@import "compass/utilities";
 
 html {
   height: 100%
@@ -18,4 +20,46 @@ body {
   img{
     max-width: none;
   }
+}
+.markerInfobox{
+  border: 1px solid #ccc;
+  margin-top: 8px;
+  background-color: #fff;
+  padding: 5px;
+  color:#000;
+  @include border-radius(10px);
+}
+
+.markerArrow,
+.markerArrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+
+.markerArrow {
+  border-width: 11px;
+  top: -2px;
+  left: 50%;
+  margin-left: -11px;
+  border-bottom-color: #999;
+  border-bottom-color: rgba(0, 0, 0, 0.25);
+  border-top-width: 0;
+}
+
+.markerArrow:after {
+  border-width: 10px;
+  content: "";
+  top: 1px;
+  margin-left: -10px;
+  border-bottom-color: #000;
+  border-top-width: 0;
+}
+
+.markerInfobox h5{
+  margin-top:0px;
+  text-align:center;
 }

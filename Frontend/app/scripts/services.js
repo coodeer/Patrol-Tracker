@@ -1,4 +1,4 @@
-define('services',['angularResource','configuration'],function(ngResource, configuration){
+define('services',['angularResource','configuration','pubnub'],function(ngResource, configuration, pubnub){
   'use strict';
 
   angular.module('services',['ngResource'])
@@ -11,6 +11,26 @@ define('services',['angularResource','configuration'],function(ngResource, confi
       var trackeableOnViewport = resource(configuration.baseUrl + '/trackeable/:SWLng,:SWLat/:NELng,:NELat',{},{
         getAll:{ method: 'GET', params:{ SWLng: '@southWest.lng', SWLat:'@SWLat', NELng:'@NELng', NELat:'@NELat' }, isArray:true }
       });
+
+      var pubnub = PUBNUB.init({
+        publish_key:'pub-c-9240b235-1cbf-4c7f-b5b6-70227d80e339',
+        subscribe_key:'sub-c-fe191c08-4426-11e4-b78c-02ee2ddab7fe'
+      });
+
+      pubnub.subscribe({
+        channel : "patrol",
+        message : function(m){
+          console.log(m);
+        },
+        connect : publish
+      });
+
+      function publish() {
+         pubnub.publish({
+             channel : "patrol",
+             message : "Hi."
+         })
+       }
 
       return {
         getAllTrackeables: rs.getTrackeables,
