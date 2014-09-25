@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas 
+    width="100%" height="100%"
+    creationComplete="dispatchEvent( new Event( CREATION_COMPLETE ) )"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns="*">
+
+
+    <fx:Declarations>
+        <mx:DateFormatter id="dateFormatter" formatString="DD/MM/YYYY - JJ:NN:SS "/>
+
+    </fx:Declarations>
+
+    <s:VGroup width="100%" height="100%">
+
+        <fx:Script>
+            <![CDATA[
+                public static const CREATION_COMPLETE:String = "myCreationComplete";
+
+                [Bindable]
+                public var myText1:String = "";
+
+                [Bindable]
+                public var myText2:String = "";
+
+                [Bindable]
+                public var myText3:String = "";
+
+                [Bindable]
+                public var myText4:String = "";
+
+                public function mydateLabelFunction(obj:Object, column:GridColumn):String
+                {
+                    return dateFormatter.format(new Date(obj[column.dataField]));
+                }
+
+                public function myposLabelFunction(obj:Object, column:GridColumn):String
+                {
+                    var tmp:Object = obj[column.dataField];
+
+                    return 'Lat:' + tmp['latitude'] + '   Long:' + tmp['longitude'];
+                }
+            ]]>
+        </fx:Script>
+
+        <s:DataGrid id="dataGrid"
+            width="450" height="400"
+            requestedRowCount="4">
+            <s:columns>
+                <s:ArrayList>
+                    <s:GridColumn 
+                        width="220"
+                        labelFunction="myposLabelFunction"
+                        headerText="Ubicacion"
+                        sortable="false"
+                        dataField="postion"/>
+                    <s:GridColumn 
+                        width="180"
+                        labelFunction="mydateLabelFunction"
+                        dataField="date"
+                        headerText="Dia-hora"
+                        sortable="true"/>
+                    <s:GridColumn 
+                        width="40"
+                        dataField="velocidad"
+                        headerText="velocidad"
+                        sortable="true"/>
+
+                </s:ArrayList>
+            </s:columns>
+
+        </s:DataGrid>
+
+        <s:Button id="button" label="Simula notificacion"/>
+
+    </s:VGroup>
+</mx:Canvas>
+
