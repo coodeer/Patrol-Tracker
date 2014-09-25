@@ -8,8 +8,8 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
           getTrackeables: { method: 'GET', params: { controller: 'trackeable' }, isArray: true }
       });
 
-      var trackeableOnViewport = resource(configuration.baseUrl + '/trackeable/:SWLng,:SWLat/:NELng,:NELat',{},{
-        getAll:{ method: 'GET', params:{ SWLng: '@southWest.lng', SWLat:'@SWLat', NELng:'@NELng', NELat:'@NELat' }, isArray:true }
+      var viewport = resource(configuration.baseUrl + '/trackeable/channel',{},{
+        change:{ method: 'PUT', params:{}, headers:{ 'xsrf-token': 'aaabbbcccddd000111'} isArray:false }
       });
 
       var pubnub = PUBNUB.init({
@@ -17,28 +17,39 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
         subscribe_key:'sub-c-fe191c08-4426-11e4-b78c-02ee2ddab7fe'
       });
 
-      pubnub.subscribe({
-        channel : "patrol-notifications",
-        message : function(m){
-          console.log(m);
-        }
-      });
+      var subscribeToNotifications = function(callback, errCallback){
 
-      pubnub.subscribe({
-        channel : "patrol-positions",
-        message : function(m){
-          console.log(m);
-        }
-      });
+        pubnub.subscribe({
+          channel : "patrol-notifications",
+          message : callback,
+          error: errCallback
+        });
+
+        return function(){ pubnub.unsubscribe({ channel: "patrol-notifications" }); };
+      };
+
+      var subscribeToViewport = function(data, callback, errCallback){
+
+        viewport.change(data);
+
+        pubnub.subscribe({
+          channel : "patrol-positions",
+          message : callback,
+          error: errCallback
+        });
+
+        return function(){ pubnub.unsubscribe({ channel: "patrol-positions" }); };
+      };
 
       return {
         getAllTrackeables: rs.getTrackeables,
-        getTrackeablesOnViewport: trackeableOnViewport.getAll
+        changeViewport: viewport.change,
+        subscribeToViewport: subscribeToViewport,
+        subscribeToNotifications: subscribeToNotifications
       };
     }])
-    .factory('trackableService', ['dataContext', '$window',
-      function(dataContext, $window){
-        var pullFrequency = 100000;
+    .factory('trackableService', ['dataContext',
+      function(dataContext){
 
         var getAll = function getAll(callback, errCallback){
 
@@ -59,53 +70,18 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
           return dataContext.getAllTrackeables({},success,error);
         };
 
-        var getAllOnViewport = function getAllOnViewport(data, callback, errCallback){
-
-          var requestData = {
-            SWLat: data.southWest.lat,
-            SWLng: data.southWest.lng,
-            NELat: data.northEast.lat,
-            NELng: data.northEast.lng
-          };
-
-          function success(responseData){
-              // do something
-              if(angular.isFunction(callback)){
-                callback(responseData);
-              }
-          }
-
-          function error(response){
-            //do something
-            if(angular.isFunction(errCallback)){
-              errCallback(response);
-            }
-          }
-
-          return dataContext.getTrackeablesOnViewport(requestData,success,error);
-        };
-
-        var subscribe = function subscribe(method, data, callback, errCallback){
-
-          method(data, callback, errCallback);
-          var intervalToken = $window.setInterval(function(){
-              method(data, callback, errCallback);
-          }, pullFrequency);
-
-          var unsubscribe = function(){
-            $window.clearInterval(intervalToken);
-          };
-
-          return unsubscribe;
-        };
-
         var subscribeToViewport = function(bounds, callback, errCallback){
-          return subscribe(getAllOnViewport, bounds, callback, errCallback);
+          return dataContext.subscribeToViewport(bounds, callback, errCallback);
+        };
+
+        var subscribeToNotifications = function(callback, errCallback){
+          return dataContext.subscribeToNotifications(callback, errCallback);
         };
 
         return{
           getAll: getAll,
-          subscribeToViewport: subscribeToViewport
+          subscribeToViewport: subscribeToViewport,
+          subscribeToNotifications: subscribeToNotifications
         };
       }
     ]);
