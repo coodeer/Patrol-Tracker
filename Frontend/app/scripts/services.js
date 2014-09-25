@@ -12,25 +12,34 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
         getAll:{ method: 'GET', params:{ SWLng: '@southWest.lng', SWLat:'@SWLat', NELng:'@NELng', NELat:'@NELat' }, isArray:true }
       });
 
-      var pubnub = PUBNUB.init({
-        publish_key:'pub-c-9240b235-1cbf-4c7f-b5b6-70227d80e339',
-        subscribe_key:'sub-c-fe191c08-4426-11e4-b78c-02ee2ddab7fe'
-      });
-
-      pubnub.subscribe({
-        channel : "patrol",
-        message : function(m){
-          console.log(m);
-        },
-        connect : publish
-      });
-
-      function publish() {
-         pubnub.publish({
-             channel : "patrol",
-             message : "Hi."
-         })
-       }
+      // var pubnub = PUBNUB.init({
+      //   publish_key:'pub-c-9240b235-1cbf-4c7f-b5b6-70227d80e339',
+      //   subscribe_key:'sub-c-fe191c08-4426-11e4-b78c-02ee2ddab7fe'
+      // });
+      //
+      // pubnub.subscribe({
+      //   channel : "patrol-notifications", patrol-positions
+      //   message : function(m){
+      //     console.log(m);
+      //   },
+      //   connect : publish
+      // });
+      //
+      // function publish() {
+      //    pubnub.publish({
+      //        channel : "patrol",
+      //        message : {
+      //          southWest:{
+      //            latitude,
+      //            longitude:
+      //          },
+      //          northEast:{
+      //            latitude,
+      //            longitude,
+      //          }
+      //        }
+      //    })
+      //  }
 
       return {
         getAllTrackeables: rs.getTrackeables,
