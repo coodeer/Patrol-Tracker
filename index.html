@@ -13,7 +13,7 @@
   <script src="scripts/vendor/d7100892.modernizr.js"></script>
 
   <link rel="stylesheet" href="styles/vendor/e40cadc5.bootstrap.css">
-  <link rel="stylesheet" href="styles/80c7966e.main.css">
+  <link rel="stylesheet" href="styles/b403be06.main.css">
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,8 +27,7 @@
       <div class="nav-collapse collapse">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#/zone">Assign Zone</a></li>
         </ul>
         <form class="navbar-form form-inline pull-right">
           <input type="text" placeholder="Buscar">
@@ -43,6 +42,34 @@
   <footer class="navbar-fixed-bottom">
     <p>&copy; GlobalLogic 2014</p>
   </footer> <!-- /container -->
-  <script data-main="scripts/7c0a581b.main" src="bower_components/requirejs/require.js"></script>
+  <script data-main="scripts/675f6310.main" src="bower_components/requirejs/require.js"></script>
+  <script type="text/javascript" src="flex/history/history.js"></script>
+  <!-- END Browser History required section -->
+
+  <script type="text/javascript" src="flex/swfobject.js"></script>
+  <script type="text/javascript">
+      // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection.
+      var swfVersionStr = "11.1.0";
+      // To use express install, set to playerProductInstall.swf, otherwise the empty string.
+      var xiSwfUrlStr = "flex/playerProductInstall.swf";
+      var flashvars = {};
+      var params = {};
+      params.quality = "high";
+      params.bgcolor = "#ffffff";
+      params.allowscriptaccess = "sameDomain";
+      params.allowfullscreen = "true";
+      var attributes = {};
+      attributes.id = "History";
+      attributes.name = "History";
+      attributes.align = "middle";
+      swfobject.embedSWF(
+          "History.swf", "flashContent",
+          "450", "500", 
+          swfVersionStr, xiSwfUrlStr,
+          flashvars, params, attributes);
+      // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
+      swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+  </script>
+
 </body>
 </html>
