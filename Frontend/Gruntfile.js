@@ -426,6 +426,13 @@ module.exports = function (grunt) {
                   src:[
                       'views/*'
                   ]
+                },{
+                  expand:true,
+                  cwd:'<%= yeoman.app %>',
+                  dest:'<%= yeoman.dist %>',
+                  src:[
+                      'flex/**'
+                  ]
                 }]
             }
         },
