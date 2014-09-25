@@ -6,26 +6,6 @@ package com.patroltracker.view
     import org.puremvc.as3.interfaces.*;
     import org.puremvc.as3.patterns.mediator.Mediator;
 
-    /**
-     * A Mediator for interacting with the top level Application.
-     *
-     * <P>
-     * In addition to the ordinary responsibilities of a mediator
-     * the MXML application (in this case) built all the view components
-     * and so has a direct reference to them internally. Therefore
-     * we create and register the mediators for each view component
-     * with an associated mediator here.</P>
-     *
-     * <P>
-     * Then, ongoing responsibilities are:
-     * <UL>
-     * <LI>listening for events from the viewComponent (the application)</LI>
-     * <LI>sending notifications on behalf of or as a result of these
-     * events or other notifications.</LI>
-     * <LI>direct manipulating of the viewComponent by method invocation
-     * or property setting</LI>
-     * </UL>
-     */
     public class ApplicationMediator extends Mediator implements IMediator
     {
         public static const MAIN_SCREEN:Number = 2;

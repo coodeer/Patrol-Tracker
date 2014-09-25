@@ -7,12 +7,8 @@ package com.patroltracker.view
     import org.puremvc.as3.interfaces.*;
     import org.puremvc.as3.patterns.mediator.Mediator;
 
-    /**
-     * A Mediator for interacting with the SplashScreen component.
-     */
     public class SplashScreenMediator extends Mediator implements IMediator
     {
-        // Cannonical name of the Mediator
         public static const NAME:String = "SplashScreenMediator";
 
         /**
@@ -20,8 +16,6 @@ package com.patroltracker.view
          */
         public function SplashScreenMediator(viewComponent:SplashScreen)
         {
-            // pass the viewComponent to the superclass where 
-            // it will be stored in the inherited viewComponent property
             super(NAME, viewComponent);
 
             splashScreen.addEventListener(SplashScreen.EFFECT_END, this.endEffect);
@@ -41,20 +35,15 @@ package com.patroltracker.view
             switch (note.getName())
             {
                 case StartupMonitorProxy.LOADING_STEP:
-                    // update the progress barr
                     this.splashScreen.pb.setProgress(note.getBody() as int, 100);
                     break;
 
                 case StartupMonitorProxy.LOADING_COMPLETE:
-                    // all done
-                    // show the main screen
                     this.sendNotification(ApplicationFacade.VIEW_MAIN_SCREEN);
                     break;
 
                 case ConfigProxy.LOAD_FAILED:
                 case LocaleProxy.LOAD_FAILED:
-                    // error reading the config XML fille
-                    // show the error
                     this.splashScreen.errorText.text = note.getBody() as String;
                     this.splashScreen.errorBox.visible = true;
                     break;
@@ -102,7 +91,6 @@ package com.patroltracker.view
          */
         private function endEffect(event:Event = null):void
         {
-            // start to load the resources
             var startupMonitorProxy:StartupMonitorProxy = facade.retrieveProxy(StartupMonitorProxy.NAME) as StartupMonitorProxy;
             startupMonitorProxy.loadResources();
         }
