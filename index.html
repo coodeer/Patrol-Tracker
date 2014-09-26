@@ -13,7 +13,7 @@
   <script src="scripts/vendor/d7100892.modernizr.js"></script>
 
   <link rel="stylesheet" href="styles/vendor/e40cadc5.bootstrap.css">
-  <link rel="stylesheet" href="styles/b403be06.main.css">
+  <link rel="stylesheet" href="styles/b1425e1e.main.css">
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -31,7 +31,7 @@
         </ul>
         <form class="navbar-form form-inline pull-right">
           <input type="text" placeholder="Buscar">
-          <button name="button" type="button" id="full">sarsaer</button>
+          <button name="button" type="button" class="fullScreen">Fullscreen</button>
           <button type="submit" class="btn">Buscar</button>
         </form>
       </div><!--/.nav-collapse -->
@@ -42,7 +42,7 @@
   <footer class="navbar-fixed-bottom">
     <p>&copy; GlobalLogic 2014</p>
   </footer> <!-- /container -->
-  <script data-main="scripts/cf1c03dd.main" src="bower_components/requirejs/require.js"></script>
+  <script data-main="scripts/b98d4d5e.main" src="bower_components/requirejs/require.js"></script>
   <script type="text/javascript" src="flex/history/history.js"></script>
   <!-- END Browser History required section -->
 
@@ -56,7 +56,7 @@
       var params = {};
       params.quality = "high";
       params.bgcolor = "#ffffff";
-      params.allowscriptaccess = "sameDomain";
+      params.allowscriptaccess = "always";
       params.allowfullscreen = "true";
       var attributes = {};
       attributes.id = "History";
@@ -64,7 +64,7 @@
       attributes.align = "middle";
       swfobject.embedSWF(
           "History.swf", "flashContent",
-          "450", "500", 
+          "450", "500",
           swfVersionStr, xiSwfUrlStr,
           flashvars, params, attributes);
       // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
