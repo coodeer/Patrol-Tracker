@@ -232,7 +232,7 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
           }
 
           function getMarkerHtml(trackeable){
-            return '<div class="markerInfobox"><div class="markerArrow"></div><h5>'+ trackeable.name +'</h5></div>';
+            return '<div class="markerInfobox"><div class="markerArrow"></div><h5>'+ trackeable.name +'</h5><p>'+ trackeable.velocity +'</p></div>';
           }
 
           // init only when map is ready
@@ -264,6 +264,29 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
             function init(){
               // clear the watcher for map
               initWatch();
+
+              // Construct the rectangle.
+
+              /*var rectangle = new google.maps.Rectangle({
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: '#FF0000',
+              fillOpacity: 0.35
+            });
+
+              rectangle.setMap(scope.map);
+              google.maps.event.addListener(scope.map, 'click', function(e){
+                debugger
+                //bounds.push(e.latLng);
+
+                bounds = new google.maps.LatLngBounds(
+                 
+                  new google.maps.LatLng(e.LatLng)
+                );
+                rectangle.setBounds(bounds);
+                rectangle.setMap(scope.map);
+              });*/
 
               // Construct the polygon.
               area = new google.maps.Polygon({
