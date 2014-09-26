@@ -192,6 +192,29 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
               // clear the watcher for map
               initWatch();
 
+              // Construct the rectangle.
+
+              /*var rectangle = new google.maps.Rectangle({
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: '#FF0000',
+              fillOpacity: 0.35
+            });
+
+              rectangle.setMap(scope.map);
+              google.maps.event.addListener(scope.map, 'click', function(e){
+                debugger
+                //bounds.push(e.latLng);
+
+                bounds = new google.maps.LatLngBounds(
+                 
+                  new google.maps.LatLng(e.LatLng)
+                );
+                rectangle.setBounds(bounds);
+                rectangle.setMap(scope.map);
+              });*/
+
               // Construct the polygon.
               area = new google.maps.Polygon({
                 paths: coords,
@@ -208,7 +231,6 @@ define('directives',['jquery', 'services', 'markerClusterer'], function($, servi
                 area.setPaths(coords);
                 area.setMap(scope.map);
               });
-
 
             }
 
