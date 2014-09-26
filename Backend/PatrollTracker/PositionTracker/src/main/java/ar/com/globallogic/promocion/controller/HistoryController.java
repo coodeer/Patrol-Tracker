@@ -2,8 +2,6 @@ package ar.com.globallogic.promocion.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,35 +16,48 @@ import ar.com.globallogic.promocion.mongo.model.Position;
 import ar.com.globallogic.promocion.mongo.model.PositionRecord;
 import ar.com.globallogic.promocion.service.HistoryService;
 
+/**
+ * 
+ * @author maxi
+ * 
+ */
 @Controller
-@RequestMapping(value="/history")
+@RequestMapping(value = "/history")
 public class HistoryController {
 
 	@Autowired
 	HistoryService service;
-	
-	@RequestMapping(value="/{id}",method = RequestMethod.POST)
+
+	/**
+	 * registra la posicion de un trackeable
+	 * 
+	 * @param id
+	 * @param record
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public Response create(@PathVariable("id") String id, @RequestBody Position record, HttpServletResponse hresponse) {
+	public Response create(@PathVariable("id") String id,
+			@RequestBody Position record) {
 
 		service.addRecord(record, id);
-		hresponse.setHeader("Access-Control-Allow-Origin", "*");
-
 		Response response = new Response();
 		response.setCode(CommonsConstants.OK_CODE);
 		response.setMessage(CommonsConstants.OK_MESSAGE);
-		
+
 		return response;
 	}
 
-	@RequestMapping(value="/{id}",method = RequestMethod.GET)
+	/**
+	 * devuelve el historial de un trackeable con id dado
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<PositionRecord> getHistory(@PathVariable("id") String id,HttpServletResponse response ) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
+	public List<PositionRecord> getHistory(@PathVariable("id") String id) {
+		return service.list(id);
 
-		return service.list( id);
-		
 	}
-	
 
 }

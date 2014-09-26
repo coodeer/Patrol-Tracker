@@ -18,11 +18,13 @@ public class ZoneService {
 	@Autowired
 	Jongo jongo;
 	
-	public void save(Zone zone) {
+	public Zone save(Zone zone) {
 		MongoCollection collection = jongo.getCollection(CommonsConstants.ZONE_COLLECTION);
 		collection.save(zone);
+		return zone;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Zone> getAll() {
 		MongoCollection collection = jongo.getCollection(CommonsConstants.ZONE_COLLECTION);
 		Iterator<Zone> iterator = collection.find().as(Zone.class).iterator();

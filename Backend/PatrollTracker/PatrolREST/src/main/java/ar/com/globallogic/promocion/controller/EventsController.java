@@ -14,35 +14,59 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ar.com.globallogic.promocion.mongo.model.Event;
 import ar.com.globallogic.promocion.service.EventService;
 
+/**
+ * 
+ * @author maxi
+ * 
+ */
 @Controller
-@RequestMapping(value="/event")
+@RequestMapping(value = "/event")
 public class EventsController {
 
 	private static Logger log = LoggerFactory.getLogger(EventsController.class);
 
 	@Autowired
 	EventService service;
-	
+
+	/**
+	 * devuelve todos los eventos
+	 * 
+	 * @return
+	 */
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public List<Event> getAll( ) {
+	public List<Event> getAll() {
 		log.info("Obteniendo todos los eventos");
 		return service.list();
 	}
-	@RequestMapping(value="{id} ",method = RequestMethod.GET)
+
+	/***
+	 * devuelve los eventos del trackeable con id dado
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "{id} ", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Event> getByTrackeable(@PathVariable("id") String id ) {
+	public List<Event> getByTrackeable(@PathVariable("id") String id) {
 		log.info("Atendiendo peticion /event/id");
 		log.debug("Atendiendo peticion /event/{}", id);
 		return service.getByTrackeabkle(id);
 	}
-	@RequestMapping(value="/event/{id} ",method = RequestMethod.GET)
+
+	/***
+	 * devuelve el evento con id dado
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/event/{id} ", method = RequestMethod.GET)
 	@ResponseBody
-	public Event getById(@PathVariable("id") String id ) {
+	public Event getById(@PathVariable("id") String id) {
 		log.info("atendiendo peticion /event/event/{id}");
-		log.debug("atendiendo peticion /event/event/{id}",id);
+		log.debug("atendiendo peticion /event/event/{id}", id);
 		return service.getById(id);
 	}
-	
+
 }

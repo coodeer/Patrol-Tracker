@@ -15,14 +15,20 @@ public class NotificationService {
 	
 	
 	Pubnub pubnub;
+	private String positionsChannel;
+	private String notifChannel;
 	
 	@Autowired
 	public NotificationService(
 			@Value("${pubnub.subkey}") String subkey,
-			@Value("${pubnub.pubkey}")String pubkey
+			@Value("${pubnub.pubkey}")String pubkey,
+			@Value("${pubnub.notifChannel}")String notificationChannel,
+			@Value("${pubnub.positionsChannel}")String positionsChannel
 			) {
 		super();
 		this.pubnub = new Pubnub( pubkey,subkey);
+		this.positionsChannel = positionsChannel;
+		this.notifChannel = notificationChannel;
 		suscribe();
 	
 	}
@@ -79,7 +85,7 @@ public class NotificationService {
 			   }
 			 };
 			
-			 pubnub.publish("patrol-notifications", message  , callback);
+			 pubnub.publish(notifChannel, message  , callback);
 	}
 
 	public void publishPosition(JSONObject message){
@@ -93,6 +99,6 @@ public class NotificationService {
 			}
 		};
 		
-		pubnub.publish("patrol-positions", message  , callback);
+		pubnub.publish(positionsChannel, message  , callback);
 	}
 }

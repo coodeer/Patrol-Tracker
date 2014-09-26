@@ -8,6 +8,7 @@ import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import ar.com.globallogic.promocion.commons.CommonsConstants;
@@ -29,11 +30,14 @@ public class TrackeableRepository implements TrackeableRepo {
 	@Autowired
 	QueryProvider queryProvider;
 
+	@Value("${testing_context}")
+	Boolean testContext;
+	
 	private MongoCollection collection;
 
 	public Trackeable findById(String id) {
-		Gendarme gendarme = jongo.getCollection("trackeable")
-				.findOne("{_id : # }", id).as(Gendarme.class);
+		Gendarme gendarme = getTrackeableCollection().findOne("{_id : # }", id)
+				.as(Gendarme.class);
 		return gendarme;
 	}
 
@@ -44,8 +48,7 @@ public class TrackeableRepository implements TrackeableRepo {
 	}
 
 	public Boolean isOutOfZone(String id) {
-		collection = jongo
-				.getCollection(CommonsConstants.TRACKEABLE_COLLECTION);
+		collection = getTrackeableCollection();
 		Trackeable trackeable = collection.findOne("{ _id : # }", id).as(
 				Trackeable.class);
 		return isOutOfZone(trackeable);
@@ -74,21 +77,19 @@ public class TrackeableRepository implements TrackeableRepo {
 	}
 
 	public List<Trackeable> findAll() {
-		MongoCursor<Trackeable> mongocursor = jongo.getCollection("trackeable")
+		MongoCursor<Trackeable> mongocursor = getTrackeableCollection()
 				.find().as(Trackeable.class);
 		List<Trackeable> list = IteratorUtils.toList(mongocursor.iterator());
 		return list;
 	}
 
 	public void save(Trackeable trackeable) {
-		jongo.getCollection(CommonsConstants.TRACKEABLE_COLLECTION).save(
-				trackeable);
+		getTrackeableCollection().save(trackeable);
 	}
 
 	public void assignZone(String id, Zone zone) {
 
-		MongoCollection collection = jongo
-				.getCollection(CommonsConstants.TRACKEABLE_COLLECTION);
+		MongoCollection collection = getTrackeableCollection();
 		collection.update("{ _id : # }", id).with(
 				"{ $set: {assignedZone: # } }", zone);
 	}
@@ -99,8 +100,7 @@ public class TrackeableRepository implements TrackeableRepo {
 			throw new UpdateException("Objeto sin ID");
 		}
 
-		MongoCollection collection = jongo
-				.getCollection(CommonsConstants.TRACKEABLE_COLLECTION);
+		MongoCollection collection = getTrackeableCollection();
 
 		WriteResult writeResult = collection.update("{_id :#}",
 				trackeable.getId()).with(trackeable);
@@ -114,8 +114,7 @@ public class TrackeableRepository implements TrackeableRepo {
 
 	@SuppressWarnings("unchecked")
 	public List<Trackeable> getByType(String type) {
-		MongoCollection collection = jongo
-				.getCollection(CommonsConstants.TRACKEABLE_COLLECTION);
+		MongoCollection collection = getTrackeableCollection();
 		Iterator<Trackeable> iterator = collection.find("{type: #}", type)
 				.as(Trackeable.class).iterator();
 		return IteratorUtils.toList(iterator);
@@ -125,8 +124,7 @@ public class TrackeableRepository implements TrackeableRepo {
 	public List<Trackeable> getByTypeNear(String type, Double longitud,
 			Double latitud) {
 		String query = "{ type: #, location:{$nearSphere:{[#,#]}}}";
-		MongoCollection collection = jongo
-				.getCollection(CommonsConstants.TRACKEABLE_COLLECTION);
+		MongoCollection collection = getTrackeableCollection();
 		Iterator<Trackeable> iterator = collection
 				.find(query, type, longitud, latitud).as(Trackeable.class)
 				.iterator();
@@ -138,8 +136,7 @@ public class TrackeableRepository implements TrackeableRepo {
 			Double swlatitud, Double nelongitud, Double nelatitud) {
 		String query = "{ type: # , currentPosition : { $geoWithin : { $box : [ [ #,# ] , [ #,# ] ] } } }";
 
-		MongoCollection collection = jongo
-				.getCollection(CommonsConstants.TRACKEABLE_COLLECTION);
+		MongoCollection collection = getTrackeableCollection();
 		Iterator<Trackeable> iterator = collection
 				.find(query, type, swlongitud, swlatitud, nelongitud, nelatitud)
 				.as(Trackeable.class).iterator();
@@ -150,8 +147,7 @@ public class TrackeableRepository implements TrackeableRepo {
 			Double swlatitud, Double nelongitud, Double nelatitud) {
 		String query = "{ _id: # , currentPosition : { $geoWithin : { $box : [ [ #,# ] , [ #,# ] ] } } }";
 
-		MongoCollection collection = jongo
-				.getCollection(CommonsConstants.TRACKEABLE_COLLECTION);
+		MongoCollection collection = getTrackeableCollection();
 		Trackeable iterator = collection.findOne(query, id, swlongitud,
 				swlatitud, nelongitud, nelatitud).as(Trackeable.class);
 		return iterator;
@@ -165,13 +161,30 @@ public class TrackeableRepository implements TrackeableRepo {
 
 	@Override
 	public void saveChannel(ChanellInfo chanellInfo) {
-		MongoCollection collection2 = jongo.getCollection(CommonsConstants.CHANELL_COLLECTION);
+		MongoCollection collection2 = getChannelCollection();
 		ChanellInfo chanel = collection2.findOne().as(ChanellInfo.class);
-		if(chanel == null){
+		if (chanel == null) {
 			collection2.save(chanellInfo);
-		}else{
-			collection2.update("{_id : #}",chanel.getId()).with("{northEast:#, southWest:#}",chanellInfo.getNorthEast(), chanellInfo.getSouthWest());
+		} else {
+			collection2.update("{_id : #}", chanel.getId()).with(
+					"{northEast:#, southWest:#}", chanellInfo.getNorthEast(),
+					chanellInfo.getSouthWest());
 		}
 	}
 
+	private MongoCollection getChannelCollection() {
+		if(testContext){
+			return jongo.getCollection(CommonsConstants.CHANELL_COLLECTION_TEST);
+		}else{			
+			return jongo.getCollection(CommonsConstants.CHANELL_COLLECTION);
+		}
+	}
+
+	private MongoCollection getTrackeableCollection() {
+		if(testContext){
+			return jongo.getCollection(CommonsConstants.TRACKEABLE_COLLECTION_TEST);			
+		}else{			
+			return jongo.getCollection(CommonsConstants.TRACKEABLE_COLLECTION);
+		}
+	}
 }

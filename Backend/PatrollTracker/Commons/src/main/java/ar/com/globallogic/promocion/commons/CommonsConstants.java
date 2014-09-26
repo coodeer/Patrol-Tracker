@@ -5,6 +5,13 @@ public class CommonsConstants {
 	public static final String TRACKEABLE_COLLECTION = "trackeable";
 	public static final String HISTORY_COLLECTION = "history";
 	public static final String ZONE_COLLECTION = "zone";
+	public static final String CHANELL_COLLECTION = "chanel";
+
+	public static final String TRACKEABLE_COLLECTION_TEST = "trackeable_test";
+	public static final String HISTORY_COLLECTION_TEST = "history_test";
+	public static final String ZONE_COLLECTION_TEST = "zone_test";
+	public static final String CHANELL_COLLECTION_TEST = "chanel_test";
+	
 	public static String GENDARME_CLASS="ar.com.globallogic.promocion.mongo.model.Gendarme";
 	public static String VEHICLE_CLASS="ar.com.globallogic.promocion.mongo.model.Vehiculo";
 	
@@ -26,7 +33,10 @@ public class CommonsConstants {
 
 	public static final String OUT_ZONE_RESPONSE_CODE = "1002";
 	public static final String BACK_ZONE_RESPONSE_CODE = "1200";
-	public static final String CHANELL_COLLECTION = "chanel";
 	public static final String AUTHORIZATION = "Authorization";
+	
+	public static final String BOX = "BOX";
+	public static final String CIRCLE = "CIRCLE";
+	public static final String POLYGON = "POLYGON";
 	
 }

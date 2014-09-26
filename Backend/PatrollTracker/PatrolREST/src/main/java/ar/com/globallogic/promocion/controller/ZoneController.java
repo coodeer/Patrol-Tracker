@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ar.com.globallogic.promocion.mongo.model.Zone;
 import ar.com.globallogic.promocion.service.ZoneService;
-
+/**
+ * 
+ * @author maxi
+ *
+ */
 @Controller
 @RequestMapping(value="/zone")
 public class ZoneController {
@@ -21,18 +25,24 @@ public class ZoneController {
 			.getLogger(Zone.class);
 	@Autowired
 	ZoneService service;
-	
+	/**
+	 * crea una zona
+	 * @param zone
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public String create(@RequestBody Zone zone) {
+	public Zone create(@RequestBody Zone zone) {
 		log.info("creando una nueva zona");
-		service.save(zone);
-		return "ok";
+		return service.save(zone);
 	}
-	
+	/**
+	 * devuelve todas las zonas
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public List<Zone> create( ) {
+	public List<Zone> getAll( ) {
 		log.info("Obteniendo todas las zonas");
 		return service.getAll();
 	}

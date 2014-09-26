@@ -12,16 +12,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.com.globallogic.promocion.commons.CommonsConstants;
-import ar.com.globallogic.promocion.controller.TrackeableController;
 import ar.com.globallogic.promocion.mongo.model.Event;
 
+/**
+ * 
+ * @author maxi
+ * 
+ */
 @Component
 public class EventService {
 
 	@Autowired
 	Jongo jongo;
-	private static Logger log = LoggerFactory
-			.getLogger(EventService.class);
+	private static Logger log = LoggerFactory.getLogger(EventService.class);
+
+	/**
+	 * 
+	 * devuelve todos los eventos
+	 * 
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Event> list() {
 		log.info("obteniendo todas los eventos");
@@ -31,9 +41,15 @@ public class EventService {
 		return IteratorUtils.toList(iterator);
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
 	public List<Event> getByTrackeabkle(String id) {
-		
-		log.info("obteneindo los eventos para el  trackeable: {}",id);
+
+		log.info("obteneindo los eventos para el  trackeable: {}", id);
 		MongoCollection collection = jongo
 				.getCollection(CommonsConstants.EVENT_COLLECTION);
 		Iterator<Event> iterator = collection.find("{trackeable_id: #}", id)
@@ -41,11 +57,16 @@ public class EventService {
 		return IteratorUtils.toList(iterator);
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Event getById(String id) {
 		log.info("obteneindo el evento con id {}", id);
 		MongoCollection collection = jongo
 				.getCollection(CommonsConstants.EVENT_COLLECTION);
-		Event event= collection.findOne("{_id: #}", id).as(Event.class);
+		Event event = collection.findOne("{_id: #}", id).as(Event.class);
 		return event;
 	}
 }
