@@ -155,12 +155,12 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
 
             var bounds = {
               northEast:{
-                lat: northEast.lat(),
-                lng: northEast.lng()
+                latitude: northEast.lat(),
+                longitude: northEast.lng()
               },
               southWest:{
-                lat: southWest.lat(),
-                lng: southWest.lng()
+                latitude: southWest.lat(),
+                longitude: southWest.lng()
               }
             };
 
