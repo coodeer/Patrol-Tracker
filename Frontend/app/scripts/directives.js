@@ -58,7 +58,7 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
           getData: '&'
         },
         link:function(scope, element, attrs){
- var initWatch,
+            var initWatch,
               viewportChangedEvent,
               viewportSubscriptionToken,
               clusterer,
@@ -183,6 +183,21 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
           }
 
           function updateMap(data){
+
+            if(!angular.isArray(data)){
+              var m = {
+                currentPosition: {
+                  latitude: data.latitude,
+                  longitude: data.longitude
+                },
+                _id : data.trackeable_id,
+                velocity: data.velocity
+              };
+
+              data = [];
+              data.push(m);
+            }
+
             for (var i = 0; i < data.length; i++) {
               var location = new google.maps.LatLng(data[i].currentPosition.latitude, data[i].currentPosition.longitude);
               var markerIndex = getTrackeableIndex(data[i]);
@@ -265,7 +280,6 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
                 area.setPaths(coords);
                 area.setMap(scope.map);
               });
-
 
             }
 
