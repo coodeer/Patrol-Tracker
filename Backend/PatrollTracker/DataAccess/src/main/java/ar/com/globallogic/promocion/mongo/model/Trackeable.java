@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.jongo.marshall.jackson.oid.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -16,6 +19,8 @@ include=JsonTypeInfo.As.PROPERTY,property="type"
 	@JsonSubTypes.Type(value = Camioneta.class, name = "camioneta")
 
 })
+@JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Trackeable {
 
 	@Id
