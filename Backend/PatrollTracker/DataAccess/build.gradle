@@ -1,0 +1,21 @@
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+
+group = "ar.com.globallogic.milico.tracker"
+version = '1.0'
+dependencies {
+	        
+
+	testCompile 'junit:junit:4.8.2'
+
+
+    
+    /* Jackson JSON Mapper */
+    compile("org.codehaus.jackson:jackson-mapper-asl:1.9.2")
+
+
+    compile 'org.springframework.data:spring-data-mongodb:1.5.2.RELEASE'
+    compile 'org.jongo:jongo:1.1'
+    compile 'commons-collections:commons-collections:3.0'
+    compile project (':Commons')
+}
