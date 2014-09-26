@@ -82,7 +82,7 @@ package com.patroltracker.model
         {
             // create a worker who will go get some data
             // pass it a reference to this proxy so the delegate knows where to return the data
-            var delegate:LoadXMLDelegate = new LoadXMLDelegate(this, 'flex/assets/config.xml');
+            var delegate:LoadXMLDelegate = new LoadXMLDelegate(this, 'assets/config.xml');
             // make the delegate do some work
             delegate.load();
         }
