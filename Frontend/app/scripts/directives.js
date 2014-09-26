@@ -58,7 +58,8 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
           getData: '&'
         },
         link:function(scope, element, attrs){
-          var initWatch,
+ var initWatch,
+              viewportChangedEvent,
               viewportSubscriptionToken,
               clusterer,
               clustererOptions = {
@@ -69,23 +70,37 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
                   width: 35,
                   height: 54,
                   textColor: '#ffffff',
-                  textSize: 10
+                  textSize: 12
                 }, {
                   url: '/views/soldier45.png',
                   width: 45,
                   height: 69,
                   textColor: '#ffffff',
-                  textSize: 11
+                  textSize: 13
                 }, {
                   url: '/views/soldier55.png',
                   width: 55,
                   height: 84,
                   textColor: '#ffffff',
-                  textSize: 12
+                  textSize: 14
                 }]
               },
-               carIcon,
-               soldierIcon;
+              infoBoxOptions = {
+                content: '',
+                disableAutoPan: false,
+                maxWidth: 0,
+                zIndex: null,
+                boxStyle: {
+                  opacity: 0.9,
+                  width: "200px",
+                },
+                closeBoxMargin: "10px 2px 2px 2px",
+                closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+              },
+              carIcon,
+              soldierIcon,
+              lastEventDate,
+              boundsEventToken;
 
           scope.markers = [];
 
@@ -94,39 +109,69 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
             initWatch();
 
             // setup icons
-            carIcon = new google.maps.MarkerImage('/views/car.png', new google.maps.Size(24, 13));
+            carIcon = new google.maps.MarkerImage('/views/car36.png', new google.maps.Size(36, 19));
             soldierIcon = new google.maps.MarkerImage('/views/soldier24.png', new google.maps.Size(24, 37));
+            infoBoxOptions.infoBoxClearance = new google.maps.Size(1, 1);
+            infoBoxOptions.pixelOffset = new google.maps.Size(-100, 0),
+
 
             // on viewport change get data
             google.maps.event.addListener(scope.map, 'bounds_changed', function(){
-              // cancel current subscription
-              if(viewportSubscriptionToken){
-                viewportSubscriptionToken();
+              if(!lastEventDate){
+                // start waiting until event ends
+                boundsEventToken = window.setInterval(checkIfBoundsEventsFinished, 300);
               }
-
-              var northEast = scope.map.getBounds().getNorthEast();
-              var southWest = scope.map.getBounds().getSouthWest();
-
-              var bounds = {
-                northEast:{
-                  latitude: northEast.lat(),
-                  longitude: northEast.lng()
-                },
-                southWest:{
-                  latitude: southWest.lat(),
-                  longitude: southWest.lng()
-                }
-              };
-
-              subscribeToViewport(bounds);
+              else{
+                // update last event date
+                lastEventDate = new Date().getTime();
+              }
             });
+          }
+
+          function checkIfBoundsEventsFinished(){
+            var timeStamp = new Date().getTime();
+            if(lastEventDate && (lastEventDate + 300) <  timeStamp){
+                onBoundsChanged();
+                window.clearInterval(boundsEventToken);
+                lastEventDate = null;
+                boundsEventToken = null;
+            }
+
+            // if just started set lastEventDate
+            if(!lastEventDate && boundsEventToken){
+              lastEventDate = timeStamp;
+            }
+          }
+
+          function onBoundsChanged(){
+
+            // cancel current subscription
+            if(viewportSubscriptionToken){
+              viewportSubscriptionToken();
+            }
+
+            var northEast = scope.map.getBounds().getNorthEast();
+            var southWest = scope.map.getBounds().getSouthWest();
+
+            var bounds = {
+              northEast:{
+                lat: northEast.lat(),
+                lng: northEast.lng()
+              },
+              southWest:{
+                lat: southWest.lat(),
+                lng: southWest.lng()
+              }
+            };
+
+            subscribeToViewport(bounds);
           }
 
           function subscribeToViewport(bounds){
             viewportSubscriptionToken = scope.getData({  data: bounds, callback: updateMap });
           }
 
-          function isMarkerLoaded(trackeable){
+          function getTrackeableIndex(trackeable){
             var markerIndex = -1;
             for (var i = 0; i < scope.markers.length; i++) {
               if(scope.markers[i].trackeable._id === trackeable._id){
@@ -140,7 +185,7 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
           function updateMap(data){
             for (var i = 0; i < data.length; i++) {
               var location = new google.maps.LatLng(data[i].currentPosition.latitude, data[i].currentPosition.longitude);
-              var markerIndex = isMarkerLoaded(data[i]);
+              var markerIndex = getTrackeableIndex(data[i]);
 
               if(markerIndex !== -1){
                 // update location
@@ -151,7 +196,15 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
                     position: location,
                     icon: data[i].isVehicle ? carIcon : soldierIcon
                 });
+
+                marker.infobox = new InfoBox(infoBoxOptions);
                 marker.trackeable = data[i];
+
+                google.maps.event.addListener(marker, 'click', function(e){
+                  this.infobox.setContent(getMarkerHtml(this.trackeable));
+                  this.infobox.open(scope.map, this);
+                });
+
                 scope.markers.push(marker);
               }
             }
@@ -160,6 +213,10 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
               clusterer.clearMarkers();
             }
             clusterer = new MarkerClusterer(scope.map, scope.markers, clustererOptions);
+          }
+
+          function getMarkerHtml(trackeable){
+            return '<div class="markerInfobox"><div class="markerArrow"></div><h5>'+ trackeable.name +'</h5></div>';
           }
 
           // init only when map is ready
