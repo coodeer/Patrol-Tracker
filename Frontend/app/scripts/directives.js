@@ -231,7 +231,7 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
             restrict:'C',
             link:function(scope, element, attrs){
                 element.on('click', function(){
-                  fullscreen.requestFullScreen($('[data-ng-view]'));
+                  fullscreen.requestFullScreen($('[data-ng-view]')[0]);
                 });
             }
         };

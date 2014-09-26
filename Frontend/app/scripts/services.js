@@ -9,7 +9,7 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
       });
 
       var viewport = resource(configuration.baseUrl + '/trackeable/channel',{},{
-        change:{ method: 'PUT', params:{}, headers:{ 'xsrf-token': 'aaabbbcccddd000111'} isArray:false }
+        change:{ method: 'PUT', params:{}, headers:{ 'xsrf-token': 'aaabbbcccddd000111'}, isArray:false }
       });
 
       var pubnub = PUBNUB.init({
