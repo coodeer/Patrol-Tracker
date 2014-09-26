@@ -40,12 +40,12 @@ package com.patroltracker.view
             super(NAME, viewComponent);
         }
 
-        public function callFromJavaScript(param1:Object):void
+        public function callFromJavaScript(str:String):void
         {
-            //todo parse params
+            var params:Array = str.split(',');
 
             if (lc)
-                lc.send("_myconnectionAir", "notify", param1, null, null, null, null);
+                lc.send("_myconnectionAir", "notify", params[0], params[1], params[2], null, null);
         }
 
         override public function handleNotification(notification:INotification):void
@@ -118,6 +118,7 @@ package com.patroltracker.view
             mainScreen.button.addEventListener(MouseEvent.CLICK, clickHandler);
             lc = new LocalConnection();
             lc.allowDomain("*");
+            lc.connect('_swfConnection');
             clientObject = new Object();
             clientObject.openMarker = function(param1:String):void
             {
@@ -125,7 +126,6 @@ package com.patroltracker.view
                 trace("openMarker called with one parameter: " + param1);
             }
             lc.client = clientObject;
-            lc.connect('swfConnection');
         }
     }
 }

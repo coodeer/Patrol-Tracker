@@ -19,7 +19,9 @@ define('fullscreen',[],function(){
         document.cancelFullScreen();
     } else{
       el.requestFullScreen = el.webkitRequestFullScreen || el.mozRequestFullScreen || el.requestFullScreen;
-      el.requestFullScreen();
+      if(el.webkitRequestFullScreen){
+        document.body.requestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+      }
     }
   }
 
