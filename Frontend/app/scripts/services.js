@@ -47,8 +47,8 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
         rs.change(data);
 
         getViewport.all({
-          slat: data.southEast.latitude,
-          slng: data.southEast.longitude,
+          slat: data.southWest.latitude,
+          slng: data.southWest.longitude,
           nlat: data.northEast.latitude,
           nlng: data.northEast.longitude
           }, callback);
