@@ -1,0 +1,38 @@
+subprojects {
+	
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+
+	buildscript {
+		repositories { maven { url 'http://jcenter.bintray.com'} }
+    }
+
+    repositories {
+       	mavenCentral()
+       	mavenLocal()
+    }
+
+    dependencies {
+	        ext {    
+	           springVersion = "3.2.4.RELEASE"
+	        }
+		/* JUnit Dependencies */
+		testCompile 'junit:junit:4.8.2'
+		
+		compile("org.springframework:spring-core:$springVersion")
+		compile("org.springframework:spring-test:$springVersion")
+
+		
+		/* Logback dependencies */
+		compile('ch.qos.logback:logback-classic:1.0.7')
+		compile('ch.qos.logback:logback-core:1.0.7')
+		
+		/* Mockito dependencies */
+		testCompile('org.mockito:mockito-all:1.8.4')
+		
+		/* Jackson JSON Mapper */
+		compile("org.codehaus.jackson:jackson-mapper-asl:1.9.2")
+    }
+    
+   
+}

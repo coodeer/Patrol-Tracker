@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="2.0">
+	<wb-module deploy-name="PatrolREST">
+		<property name="context-root" value="PatrolREST"/>
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
+		<wb-resource deploy-path="/" source-path="src/main/webapp"/>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/DataAccess/DataAccess">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/Commons/Commons">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.1/55605135bd7b836612e0bba7037c9669f6ccf89f/jackson-annotations-2.4.1.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.7/56003dcd0a31deea6391b9e2ef2f2dc90b205a92/jcl-over-slf4j-1.7.7.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.8.2.RELEASE/6362720986098362d43e124dc5047bbb71f0c42e/spring-data-commons-1.8.2.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-mapper-asl/1.9.2/95400a7922ce75383866eb72f6ef4a7897923945/jackson-mapper-asl-1.9.2.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.7/2b8019b6249bb05d81d3a3094e468753e2b21311/slf4j-api-1.7.7.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-core-asl/1.9.2/8493982bba1727106d767034bd0d8e77bc1931a9/jackson-core-asl-1.9.2.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.jongo/jongo/1.1/810ed2c126a8224ae638dbac7fa13cb1363bedaa/jongo-1.1.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/3.2.10.RELEASE/4f3ccccc4dbeba4d502bd51902357b3499d6b911/spring-context-3.2.10.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/3.2.4.RELEASE/8daf0bd1172cb253d93611adadfa0462935d760d/spring-web-3.2.4.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/com.thetransactioncompany/java-property-utils/1.6/7678e48ea05f584e680f5f2162704f159500901c/java-property-utils-1.6.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/3.2.10.RELEASE/77d0b86238df32cb15e469eaa2f7f32c4893dc54/spring-aop-3.2.10.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/3.2.10.RELEASE/304a432abd4f60cc329fcaaab90a3f73f3e69684/spring-core-3.2.10.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.5.2.RELEASE/e1068e54062c16959edd00932ee81c808ee4ec4d/spring-data-mongodb-1.5.2.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.1/b130bcfb5a9c410c3cbd2e0adec9437e69a39e2c/jackson-core-2.4.1.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/2.12.1/aefb5972e951b230756e8e02178cc3d6eb430675/mongo-java-driver-2.12.1.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/3.2.10.RELEASE/d8239be9e4c0e162c6b8e3f8feabd7937376a1de/spring-beans-3.2.10.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/commons-collections/commons-collections/3.0/aa12980fe4eca7331a660bdeed371d024687c68d/commons-collections-3.0.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/com.thetransactioncompany/cors-filter/1.3.2/3497b3ec9a7035f0f6ff76d81ea58e2f94dea6c9/cors-filter-1.3.2.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/de.undercouch/bson4jackson/2.4.0/6515cf6211f044965854e9c92db5a89fb9339534/bson4jackson-2.4.0.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/3.2.10.RELEASE/9e297da0a1eceb54759e7370d07642970a7a43a/spring-expression-3.2.10.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.0.7/df9279b212f62a7bb96e645e643eb5c4b675ee64/logback-core-1.0.7.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/3.2.10.RELEASE/3ce819d1dc339999016ee36e0e88e1fc40efcf32/spring-tx-3.2.10.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/3.2.4.RELEASE/a3d08624ed6e54c2492ca866f7423215c45b4dd0/spring-test-3.2.4.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.3/f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f/commons-logging-1.1.3.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/235ba8b489512805ac13a8f9ea77a1ca5ebe3e8/aopalliance-1.0.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/3.2.4.RELEASE/99c0303b36c421b3c43dfc2ae55e46fc81dbaefc/spring-webmvc-3.2.4.RELEASE.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.0.7/7c56c1e6000fa1c2e71b88b09435d9a5710b8d66/logback-classic-1.0.7.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.1/f07c773f7b3a03c3801d405cadbdc93f7548e321/jackson-databind-2.4.1.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+	</wb-module>
+</project-modules>
