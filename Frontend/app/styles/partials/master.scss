@@ -15,3 +15,46 @@ body > .container-fluid {
 footer p{
   text-align:center;
 }
+
+.nav > li.fullHide{
+  display:none;
+}
+
+body:-webkit-full-screen .fullScreen{
+  display:none;
+}
+body:-moz-full-screen .fullScreen{
+  display:none;
+}body:-ms-full-screen .fullScreen{
+  display:none;
+}body:fullscreen .fullScreen{
+  display:none;
+}
+body:-webkit-full-screen .fullHide,
+body:-webkit-full-screen .fullHide > a{
+  display:block;
+}
+body:-moz-full-screen .fullHide,
+body:-moz-full-screen .fullHide > a{
+  display:block;
+}
+body:-ms-full-screen .fullHide,
+body:-ms-full-screen .fullHide > a{
+  display:block;
+}
+body:fullscreen .fullHide,
+body:fullscreen .fullHide > a{
+  display:block;
+}
+body:-webkit-full-screen {
+  width: 100% !important;
+}
+body:-moz-full-screen {
+  width: 100% !important;
+}
+body:-ms-fullscreen {
+  width: 100% !important;
+}
+body:fullscreen {
+  width: 100% !important;
+}

@@ -231,11 +231,28 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
             restrict:'C',
             link:function(scope, element, attrs){
                 element.on('click', function(){
-                  fullscreen.requestFullScreen($('[data-ng-view]')[0]);
+                  fullscreen.requestElementFullScreen($('[data-ng-view]')[0]);
                 });
             }
         };
         return directiveDefinition;
       }
-    ]);
+    ])
+    .directive('navbar',['$location',
+      function(){
+        var directiveDefinition = {
+          restrict:'C',
+          link:function(scope,element,attrs){
+            scope.isHome = location.hash !== '#/zone';
+            scope.isAssignZone = !scope.isHome;
+            scope.location = location;
+            scope.$watch('location.hash',function(){
+              scope.isHome = location.hash !== '#/zone';
+              scope.isAssignZone = !scope.isHome;
+            });
+          }
+        };
+        return directiveDefinition;
+      }
+    ])
 });
