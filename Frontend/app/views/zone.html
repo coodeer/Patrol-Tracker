@@ -1,2 +1,9 @@
-<h2>Dibujar Zona</h2>
+<div class="header-map">
+	<h4>Dibujar Zona - Seleccionar Gendarme: </h4>
+	<select class="form-control" id="available" name="select">
+		<option ng-repeat="option in options"  id="{{option._id}}">{{option.name}}</option>
+	</select>
+	<input type="button" class="btn btn-default" data-ng-click="assignZone()" value="Asignar">
+</div>
+
 <div data-zone-map="true" data-center-lat="-34.6343574" data-center-lng="-58.4641975"></div>

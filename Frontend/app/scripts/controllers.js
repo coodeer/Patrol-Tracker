@@ -19,6 +19,10 @@ define('controllers',['services'], function(services){
 
     }])
     .controller('ZoneCtrl',['$scope','trackableService', function(scope, service){
-        console.log(service.getAll());
+        //console.log(service.getAll());
+        scope.options = service.getAll();
+        scope.assignZone = function assignZone(){
+          console.log(assignZone);
+        };
     }]);
 });
