@@ -35,9 +35,9 @@
           <li class="fullHide"><a href="javascript:;" class="fullScreen">Salir Full Screen</a></li>
           <li><a href="javascript:;" class="fullScreen">Full Screen</a></li>
         </ul>
-        <form class="navbar-form form-inline pull-right">
-          <input type="text" placeholder="Buscar">
-          <button type="submit" class="btn btn-default">Buscar</button>
+        <form class="navbar-form form-inline pull-right" data-ng-show="isHome">
+          <input type="text" placeholder="Buscar" data-ng-model="searchText">
+          <button type="submit" class="btn btn-default" data-ng-click="search()">Buscar</button>
         </form>
       </div><!--/.nav-collapse -->
     </div>
@@ -57,9 +57,9 @@
   <script type="text/javascript" src="flex/swfobject.js"></script>
   <script type="text/javascript">
       	  	function outputStatus(e) {
-			alert("e.success = " + e.success +"\ne.id = "+ e.id +"\ne.ref = "+ e.ref);
+			//alert("e.success = " + e.success +"\ne.id = "+ e.id +"\ne.ref = "+ e.ref);
 		}
-	  
+
 	  // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection.
       var swfVersionStr = "11.1.0";
       // To use express install, set to playerProductInstall.swf, otherwise the empty string.
@@ -81,23 +81,28 @@
           swfVersionStr, xiSwfUrlStr,
           flashvars, params, attributes,outputStatus);
       // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
-      
-	  
-		
+
+
+
 		function openMarker(str) {
 			//TODO: lets show a Marker
 				alert(str);
 		}
 
-		
 		function setNotification(str) {
 			var obj = swfobject.getObjectById("History");
 			if (obj && typeof obj.setNotification != "undefined") {
-			//TODO: reemplazar por el string que quieras, el string debe ser separado por ,
-				obj.setNotification('Juanito,Salio de la Zona,ID');
+				obj.setNotification(str);
 			}
 		};
-		
+
+    function showHistory(str) {
+      var obj = swfobject.getObjectById("History");
+      if (obj && typeof obj.showHistory != "undefined") {
+        obj.showHistory(str);
+      }
+    };
+
   </script>
 
 </body>

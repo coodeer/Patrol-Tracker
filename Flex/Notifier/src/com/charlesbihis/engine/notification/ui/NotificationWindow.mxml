@@ -86,7 +86,6 @@
                 {
                     if (notificationManager.localConnection)
                         notificationManager.localConnection.send("_swfConnection", "openMarker", notificationLink); //Patrol-tracker.herokuapp.com
-                        //flash.net.navigateToURL(new URLRequest(notificationLink));
                 } // if statement
             } // clickHandler
 

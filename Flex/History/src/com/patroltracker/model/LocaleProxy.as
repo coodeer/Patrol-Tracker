@@ -13,16 +13,16 @@ package com.patroltracker.model
     {
 
         // Messages
-        public static const ERROR_LOAD_FILE:String = "Could Not Load the Config File!"; // Error message
+        public static const ERROR_LOAD_FILE:String = "Could Not Load the Config File!";
 
-        public static const LOAD_FAILED:String = NAME + "loadFailed"; // Failed notification
+        public static const LOAD_FAILED:String = NAME + "loadFailed";
 
         // Notifications constansts
-        public static const LOAD_SUCCESSFUL:String = NAME + "loadSuccessful"; // Successful notification
+        public static const LOAD_SUCCESSFUL:String = NAME + "loadSuccessful";
 
-        public static const NAME:String = "LocaleProxy"; // Proxy name
+        public static const NAME:String = "LocaleProxy";
 
-        private var startupMonitorProxy:StartupMonitorProxy; // StartupMonitorProxy instance
+        private var startupMonitorProxy:StartupMonitorProxy;
 
         public function LocaleProxy(data:Object = null)
         {
@@ -59,15 +59,11 @@ package com.patroltracker.model
             var configProxy:ConfigProxy = facade.retrieveProxy(ConfigProxy.NAME) as ConfigProxy;
             var language:String = configProxy.getValue('language');
 
-            // check if the language is defined
             if (language && language != "")
             {
                 var url:String = "assets/" + configProxy.getValue('language') + '.xml';
 
-                // create a worker who will go get some data
-                // pass it a reference to this proxy so the delegate knows where to return the data
                 var delegate:LoadXMLDelegate = new LoadXMLDelegate(this, url);
-                // make the delegate do some work
                 delegate.load();
             }
             else
@@ -78,12 +74,8 @@ package com.patroltracker.model
 
         override public function onRegister():void
         {
-            // retrieve the StartupMonitorProxy
             startupMonitorProxy = facade.retrieveProxy(StartupMonitorProxy.NAME) as StartupMonitorProxy;
-            // add the resource to load
             startupMonitorProxy.addResource(LocaleProxy.NAME, true);
-
-            // reset the data   
             setData(new Object());
         }
 
@@ -94,7 +86,6 @@ package com.patroltracker.model
          */
         public function result(rpcEvent:Object):void
         {
-            // call the helper class for parse the XML data
             XmlResource.parse(data, rpcEvent.result);
 
             resourceLoaded();
@@ -105,10 +96,7 @@ package com.patroltracker.model
          */
         private function resourceLoaded():void
         {
-            // call the StartupMonitorProxy for notify that the resource is loaded
             startupMonitorProxy.resourceComplete(LocaleProxy.NAME);
-
-            // send the successful notification
             sendNotification(ConfigProxy.LOAD_SUCCESSFUL);
         }
     }

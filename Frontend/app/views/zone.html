@@ -1,2 +1,20 @@
-<h2>Dibujar Zona</h2>
+<div class="header-map row">
+	<div class="col-sm-2">
+		<h4>Dibujar Zona - Seleccionar Gendarme: </h4>
+	</div>
+	<div class="col-sm-2">
+		<select class="form-control" id="available" name="select" data-ng-model="trackableId">
+			<option ng-repeat="option in options" value="{{option._id}}">{{option.name}}</option>
+		</select>
+	</div>
+	<div class="col-sm-4">
+		<input type="radio" ng-model="shape" value="circle">  Circulo <br/>
+		<input type="radio" ng-model="shape" ng-value="rectangle"> Rectangulo <br/>
+		<input type="radio" ng-model="shape" value="polygon"> Poligono <br/>
+	</div>
+	<div class="col-sm-2">
+		<input type="button" class="btn btn-default" data-ng-click="assignZone()" value="Asignar">
+	</div>
+</div>
+
 <div data-zone-map="true" data-center-lat="-34.6343574" data-center-lng="-58.4641975"></div>

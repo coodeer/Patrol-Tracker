@@ -52,9 +52,6 @@ package com.patroltracker.view
         {
             switch (notification.getName())
             {
-                /*		case MyFacade.SET_SELECTION:
-                            setSelection(notification);
-                            break;*/
                 case HistoryProxy.LOAD_SUCCESSFUL:
                     setDataProvider(notification);
                     break;
@@ -82,6 +79,11 @@ package com.patroltracker.view
             historyProxy.load(id);
         }
 
+        /**
+         * TEST pourposes
+         * @param event
+         *
+         */
         protected function clickHandler(event:MouseEvent):void
         {
             try
@@ -108,10 +110,7 @@ package com.patroltracker.view
 
         private function handleCreationComplete(evt:Event):void
         {
-
             var dm:Object = ApplicationDomain.currentDomain;
-            trace(dm.valueOf())
-            trace(new LocalConnection().domain);
             ExternalInterface.addCallback("setNotification", callFromJavaScript);
             ExternalInterface.addCallback("showHistory", showHistory);
 
@@ -123,7 +122,6 @@ package com.patroltracker.view
             clientObject.openMarker = function(param1:String):void
             {
                 ExternalInterface.call("openMarker", param1);
-                trace("openMarker called with one parameter: " + param1);
             }
             lc.client = clientObject;
         }

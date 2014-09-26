@@ -72,9 +72,6 @@ package com.patroltracker.model
 
         override public function onRegister():void
         {
-            /*		historyProxy = facade.retrieveProxy( HistoryProxy.NAME ) as HistoryProxy;
-                    historyProxy.load() ConfigProxy.NAME, true );*/
-
             setData(new Object());
         }
 
@@ -85,11 +82,6 @@ package com.patroltracker.model
          */
         public function result(rpcEvent:Object):void
         {
-            //JSON.parse( rpcEvent.result, data);
-
-            // call the StartupMonitorProxy for notify that the resource is loaded
-            //startupMonitorProxy.resourceComplete( HistoryProxy.NAME );
-
             sendNotification(HistoryProxy.LOAD_SUCCESSFUL, rpcEvent.result);
         }
 
