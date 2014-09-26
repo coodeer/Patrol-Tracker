@@ -27,6 +27,8 @@
 
             public var lc:LocalConnection;
 
+            public var lc2:LocalConnection;
+
             var notificationManager:NotificationManager;
 
             private var clientObject:Object;
@@ -55,23 +57,28 @@
 
                 lc = new LocalConnection();
                 lc.allowDomain("*");
-                notificationManager.localConnection = lc;
+
+                lc2 = new LocalConnection();
+                lc2.allowDomain("*");
+
+                notificationManager.localConnection = lc2;
                 clientObject = new Object();
-                clientObject.notify = function(param1:String, param2:String, param3:String, param4:String, param5:String):void
+                clientObject.notify = function(nombre:String, texto:String, id:String, param4:String, param5:String):void
                 {
                     var notif:Notification = new Notification();
-                    notif.title = param1;
-                    notif.message = param1;
-                    notif.link = "openMarker";
+                    notif.title = nombre;
+                    notif.message = texto;
+                    notif.link = id;
                     notif.isCompact = false;
                     notif.isSticky = false;
                     notif.isReplayable = true;
                     notificationManager.showNotification(notif);
-                    trace("notify called with one parameter: " + param2, param3, param4, param5);
+                    // trace("notify called with one parameter: " + param2, param3, param4, param5);
                 }
                 lc.client = clientObject;
 
                 lc.connect("_myconnectionAir");
+                //lc2.connect("_swfConnection");
 
             }
         ]]>
