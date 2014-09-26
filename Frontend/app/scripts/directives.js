@@ -31,6 +31,7 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
               mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
+            require(['infobox']);
 
             if(scope.$root.$$phase !== '$apply' && scope.$root.$$phase !== '$digest') {
               scope.$apply(function(){
