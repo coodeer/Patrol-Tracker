@@ -24,10 +24,7 @@
   <buildTargets>
     <buildTarget buildTargetName="default">
       <airSettings airCertificatePath="C:/Users/CENTER/.ssh/PatrolTracker.p12" airTimestamp="true" anePathSet="true" version="1">
-        <airExcludes>
-          <pathEntry path="assets/images/m6d-magnum-sidearm-16x16.png"/>
-          <pathEntry path="assets/images/m6d-magnum-sidearm-50x50.png"/>
-        </airExcludes>
+        <airExcludes/>
         <anePaths/>
       </airSettings>
       <actionScriptSettings version="1"/>

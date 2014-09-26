@@ -85,7 +85,7 @@
                 if (notificationLink != null && notificationLink.length > 0 && !closeButton.visible)
                 {
                     if (notificationManager.localConnection)
-                        notificationManager.localConnection.send("Patrol-tracker.herokuapp.com:swfConnection", "openMarker", id);
+                        notificationManager.localConnection.send("_swfConnection", "openMarker", notificationLink); //Patrol-tracker.herokuapp.com
                         //flash.net.navigateToURL(new URLRequest(notificationLink));
                 } // if statement
             } // clickHandler

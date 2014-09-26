@@ -62,7 +62,7 @@ package com.patroltracker.model
             // check if the language is defined
             if (language && language != "")
             {
-                var url:String = "flex/assets/" + configProxy.getValue('language') + '.xml';
+                var url:String = "assets/" + configProxy.getValue('language') + '.xml';
 
                 // create a worker who will go get some data
                 // pass it a reference to this proxy so the delegate knows where to return the data
