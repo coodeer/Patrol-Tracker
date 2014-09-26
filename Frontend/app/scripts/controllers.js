@@ -18,7 +18,7 @@ define('controllers',['services'], function(services){
       });
 
     }])
-    .controller('ZoneCtrl',['$scope','trackableService', function(scope, service){
+    .controller('ZoneCtrl',['$scope','trackableService', '$window', function(scope, service, $window){
         var coords = [],
         area;
 
@@ -53,7 +53,7 @@ define('controllers',['services'], function(services){
           }
         });
 
-        window.setTimeout(function(){
+        $window.setTimeout(function(){
           google.maps.event.addListener(window.map, 'click', function(e){
             if(scope.shape === 'rectangle'){
               coords.extend(e.latLng);

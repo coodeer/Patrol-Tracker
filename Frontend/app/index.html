@@ -84,7 +84,7 @@
 
 
 
-		function openMarker(str) {
+		function openMarker(str){
 			//TODO: lets show a Marker
 				alert(str);
 		}
@@ -97,6 +97,7 @@
 		};
 
     function showHistory(str) {
+      $('#History').addClass('swfVisible');
       var obj = swfobject.getObjectById("History");
       if (obj && typeof obj.showHistory != "undefined") {
         obj.showHistory(str);

@@ -67,3 +67,10 @@ body {
 .header-map{
   background-color: #F4F3F0;
 }
+.swfVisible{
+  z-index: 2000;
+}
+#History{
+  position: absolute;
+  top: 0;
+}

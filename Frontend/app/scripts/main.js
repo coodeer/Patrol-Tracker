@@ -31,9 +31,8 @@ require.config({
     }
 });
 
-require(['app'], function (app) {
+require(['app', 'bootstrap'], function (app) {
   'use strict';
-
   angular.element(document).ready(function () {
       angular.bootstrap(angular.element('body'), ['patrolTracker']);
   });
