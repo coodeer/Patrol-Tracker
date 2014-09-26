@@ -1,6 +1,5 @@
 package com.patroltracker.controller
 {
-    import com.patroltracker.controller.SetDefaultConfigValuesCommand;
     import org.puremvc.as3.interfaces.*;
     import org.puremvc.as3.patterns.command.*;
 

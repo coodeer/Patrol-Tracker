@@ -21,15 +21,6 @@ package com.patroltracker.view
             splashScreen.addEventListener(SplashScreen.EFFECT_END, this.endEffect);
         }
 
-        /**
-         * Handle all notifications this Mediator is interested in.
-         * <P>
-         * Called by the framework when a notification is sent that
-         * this mediator expressed an interest in when registered
-         * (see <code>listNotificationInterests</code>.</P>
-         *
-         * @param INotification a notification
-         */
         override public function handleNotification(note:INotification):void
         {
             switch (note.getName())
@@ -62,24 +53,6 @@ package com.patroltracker.view
         {
             return [ StartupMonitorProxy.LOADING_STEP, StartupMonitorProxy.LOADING_COMPLETE, ConfigProxy.LOAD_FAILED, LocaleProxy.LOAD_FAILED ];
         }
-
-        /**
-         * Cast the viewComponent to its actual type.
-         *
-         * <P>
-         * This is a useful idiom for mediators. The
-         * PureMVC Mediator class defines a viewComponent
-         * property of type Object. </P>
-         *
-         * <P>
-         * Here, we cast the generic viewComponent to
-         * its actual type in a protected mode. This
-         * retains encapsulation, while allowing the instance
-         * (and subclassed instance) access to a
-         * strongly typed reference with a meaningful
-         * name.</P>
-         *
-         */
 
         protected function get splashScreen():SplashScreen
         {

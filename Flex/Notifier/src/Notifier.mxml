@@ -47,13 +47,7 @@
 
             protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
             {
-                //notificationManager.showNotification(notif);
-                notificationManager = new NotificationManager("/assets/style/light.swf", // default style
-                                                              "/assets/images/alert.PNG", // default notification image
-                                                              "/assets/images/alert.PNG", // default compact notification image
-                                                              "/assets/sounds/drop.mp3", // (optional) default notification sound
-                                                              NotificationConst.DISPLAY_LENGTH_DEFAULT, // (optional) default display length
-                                                              NotificationConst.DISPLAY_LOCATION_AUTO); // (optional) default display location
+                notificationManager = new NotificationManager("/assets/style/light.swf", "/assets/images/alert.PNG", "/assets/images/alert.PNG", "/assets/sounds/drop.mp3", NotificationConst.DISPLAY_LENGTH_DEFAULT, NotificationConst.DISPLAY_LOCATION_AUTO);
 
                 lc = new LocalConnection();
                 lc.allowDomain("*");
@@ -73,13 +67,10 @@
                     notif.isSticky = false;
                     notif.isReplayable = true;
                     notificationManager.showNotification(notif);
-                    // trace("notify called with one parameter: " + param2, param3, param4, param5);
                 }
                 lc.client = clientObject;
 
                 lc.connect("_myconnectionAir");
-                //lc2.connect("_swfConnection");
-
             }
         ]]>
     </fx:Script>

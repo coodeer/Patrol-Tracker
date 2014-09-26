@@ -10,7 +10,6 @@
 
     <fx:Declarations>
         <mx:DateFormatter id="dateFormatter" formatString="DD/MM/YYYY - JJ:NN:SS "/>
-
     </fx:Declarations>
 
     <s:VGroup width="100%" height="100%">
@@ -18,18 +17,6 @@
         <fx:Script>
             <![CDATA[
                 public static const CREATION_COMPLETE:String = "myCreationComplete";
-
-                [Bindable]
-                public var myText1:String = "";
-
-                [Bindable]
-                public var myText2:String = "";
-
-                [Bindable]
-                public var myText3:String = "";
-
-                [Bindable]
-                public var myText4:String = "";
 
                 public function mydateLabelFunction(obj:Object, column:GridColumn):String
                 {

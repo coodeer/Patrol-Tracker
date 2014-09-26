@@ -1,6 +1,5 @@
 ﻿package com.patroltracker.controller
 {
-    import com.patroltracker.ApplicationFacade
     import com.patroltracker.model.ConfigProxy;
     import org.puremvc.as3.interfaces.INotification;
     import org.puremvc.as3.patterns.command.SimpleCommand;
