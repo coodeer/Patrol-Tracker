@@ -232,7 +232,7 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
           }
 
           function getMarkerHtml(trackeable){
-            return '<div class="markerInfobox"><div class="markerArrow"></div><h5>'+ trackeable.name +'</h5></div>';
+            return '<div class="markerInfobox"><div class="markerArrow"></div><h5>'+ trackeable.name +'</h5><p>'+ trackeable.velocity +'</p></div>';
           }
 
           // init only when map is ready
