@@ -5,11 +5,13 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
     .factory('dataContext', ['$resource', function(resource){
 
     var rs = resource(configuration.baseUrl + '/:controller/:action', { /* global params */ }, {
-          getTrackeables: { method: 'GET', params: { controller: 'trackeable' }, isArray: true }
+          getTrackeables: { method: 'GET', params: { controller: 'trackeable' }, isArray: true },
+          change:{ method: 'PUT', params:{  controller:'trackeable', action: 'channel'}, isArray: false },
+          searchAll:{method: 'GET', params:{ controller:'trackeable', action: 'search', search:'@search'}, isArray: true}
       });
 
-      var viewport = resource(configuration.baseUrl + '/trackeable/channel',{},{
-        change:{ method: 'PUT', params:{}, headers:{ 'xsrf-token': 'aaabbbcccddd000111'}, isArray:false }
+      var search = resource(configuration.baseUrl + '/trackeable/type/:type/search/:search',{},{
+        byType:{ method: 'GET', params:{ type: '@type', search: '@search' }, isArray: true}
       });
 
       var pubnub = PUBNUB.init({
@@ -29,8 +31,7 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
       };
 
       var subscribeToViewport = function(data, callback, errCallback){
-
-        viewport.change(data);
+        rs.change(data);
 
         pubnub.subscribe({
           channel : "patrol-positions",
@@ -43,9 +44,10 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
 
       return {
         getAllTrackeables: rs.getTrackeables,
-        changeViewport: viewport.change,
         subscribeToViewport: subscribeToViewport,
-        subscribeToNotifications: subscribeToNotifications
+        subscribeToNotifications: subscribeToNotifications,
+        searchAll: rs.searchAll,
+        searchByType: search.byType
       };
     }])
     .factory('trackableService', ['dataContext',
@@ -78,10 +80,32 @@ define('services',['angularResource','configuration','pubnub'],function(ngResour
           return dataContext.subscribeToNotifications(callback, errCallback);
         };
 
+        var search = function search(data, callback, errCallback){
+          function success(responseData){
+            if(angular.isFunction(callback)){
+              callback(responseData);
+            }
+          }
+
+          function error(responseData){
+            if(angular.isFunction(errCallback)){
+              errCallback(responseData);
+            }
+          }
+
+          if(data.type === 'All'){
+            return dataContext.searchAll({ search: data.search }, success, error);
+          }
+          else{
+            return dataContext.searchByType(data, success, error);
+          }
+        };
+
         return{
           getAll: getAll,
           subscribeToViewport: subscribeToViewport,
-          subscribeToNotifications: subscribeToNotifications
+          subscribeToNotifications: subscribeToNotifications,
+          search: search
         };
       }
     ]);

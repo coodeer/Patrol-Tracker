@@ -312,4 +312,19 @@ define('directives',['jquery', 'services', 'markerClusterer','fullscreen'], func
         return directiveDefinition;
       }
     ])
+    .directive('navbarForm',['trackableService',
+      function(service){
+        var directiveDefinition = {
+          restrict: 'C',
+          link: function(scope, element, attrs){
+            scope.search = function(){
+              service.search({ search: scope.searchText, type: 'All' }, function(data){
+                scope.results = data;
+              });
+            };
+          }
+        };
+        return directiveDefinition;
+      }
+    ]);
 });
