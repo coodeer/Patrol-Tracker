@@ -38,6 +38,9 @@
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/3.2.4.RELEASE/8daf0bd1172cb253d93611adadfa0462935d760d/spring-web-3.2.4.RELEASE.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/com.thetransactioncompany/java-property-utils/1.6/7678e48ea05f584e680f5f2162704f159500901c/java-property-utils-1.6.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/3.2.10.RELEASE/77d0b86238df32cb15e469eaa2f7f32c4893dc54/spring-aop-3.2.10.RELEASE.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
@@ -57,6 +60,9 @@
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/commons-collections/commons-collections/3.0/aa12980fe4eca7331a660bdeed371d024687c68d/commons-collections-3.0.jar">
+			<dependency-type>uses</dependency-type>
+		</dependent-module>
+		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/com.thetransactioncompany/cors-filter/1.3.2/3497b3ec9a7035f0f6ff76d81ea58e2f94dea6c9/cors-filter-1.3.2.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
 		<dependent-module deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/maxi/.gradle/caches/modules-2/files-2.1/de.undercouch/bson4jackson/2.4.0/6515cf6211f044965854e9c92db5a89fb9339534/bson4jackson-2.4.0.jar">

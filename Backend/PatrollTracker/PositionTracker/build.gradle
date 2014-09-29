@@ -20,6 +20,7 @@ dependencies {
 
 	/* Java dependencies */
 	providedCompile("javax.servlet:servlet-api:2.5")
+	providedCompile 'org.apache.httpcomponents:httpclient:4.2.5'
 	
 	
 	compile 'org.springframework.data:spring-data-mongodb:1.5.2.RELEASE'

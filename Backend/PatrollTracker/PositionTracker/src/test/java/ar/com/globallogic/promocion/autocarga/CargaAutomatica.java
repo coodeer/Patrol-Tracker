@@ -41,9 +41,10 @@ public class CargaAutomatica {
 	/*
 	 * Este Test sirve para hacer la simulacion correrlo solo para simular
 	 */
-	@Test
+//	@Test
 	@SuppressWarnings("unchecked")
-	public void test() throws JsonParseException, JsonMappingException, IOException{
+	public void test() throws JsonParseException, JsonMappingException,
+			IOException {
 
 		DefaultHttpClient client = new DefaultHttpClient();
 
@@ -65,7 +66,9 @@ public class CargaAutomatica {
 		while ((output = br.readLine()) != null) {
 			result = output;
 		}
-
+		requestTrackeable.releaseConnection();
+		requestTrackeable.reset();
+		
 		List<Trackeable> a = (List<Trackeable>) mapper.readValue(result,
 				new TypeReference<List<Trackeable>>() {
 				});
@@ -75,72 +78,40 @@ public class CargaAutomatica {
 		while (true) {
 			for (Trackeable trackeable : a) {
 
-				client = new DefaultHttpClient();
-				HttpGet getTRackeable = new HttpGet(
-						"http://promociongl.herokuapp.com/trackeable/"
-								+ trackeable.getId());
 				HttpPost informPosition = new HttpPost(
 						"http://positiontracker.herokuapp.com/history/"
+						//"http://localhost:8080/PositionTracker/history/"
 								+ trackeable.getId());
-
-				try {
-					response = client.execute(getTRackeable);
-				} catch (ClientProtocolException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
 				boolean error = false;
 
-				Trackeable readValue = null;
-				try{
-				
-				br = new BufferedReader(new InputStreamReader(
-						(response.getEntity().getContent())));
-				while ((output = br.readLine()) != null) {
-					result = output;
-				}
-					readValue = mapper.readValue(result,	Trackeable.class);
-				}catch(IOException e){
-					 error = true;
-				}
+				if (!error) {
 
-				if(!error){
-					
 					Double sumar = Math.random() * 10;
 					boolean restar = (Math.random() * 10) > 5;
-					
+
 					sumar = sumar / 100000;
-					
+
 					if (restar) {
 						sumar *= -1;
 					}
-					
-					latitude = readValue.getCurrentPosition().getLatitude();
-					longitude = readValue.getCurrentPosition().getLongitude();
-					
-					Position position = new Position(latitude + sumar, longitude
-							+ sumar);
-					
-					
-					
-					try {
-						String positionString = mapper.writeValueAsString(position);
-						informPosition.setEntity(new StringEntity(positionString,
-								ContentType.APPLICATION_JSON));
+
+					latitude = trackeable.getCurrentPosition().getLatitude();
+					longitude = trackeable.getCurrentPosition().getLongitude();
+
+					Position position = new Position(latitude + sumar,
+							longitude + sumar);
+
+					trackeable.setCurrentPosition(position);
+
+						String positionString = mapper
+								.writeValueAsString(position);
+						informPosition.setEntity(new StringEntity(
+								positionString, ContentType.APPLICATION_JSON));
 						client.execute(informPosition);
-					} catch (ClientProtocolException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					getTRackeable.releaseConnection();
+				
 					informPosition.releaseConnection();
+					informPosition.reset();
 					request.releaseConnection();
 				}
 
